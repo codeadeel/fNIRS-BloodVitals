@@ -24,6 +24,3 @@ jobs:
 
     - name: Push Build Container
       run: docker push ${{secrets.DOCKER_USER}}/private:fnirswebapp
-
-    - name: Residue Removal
-      run: docker rmi $(docker images -a -q)
