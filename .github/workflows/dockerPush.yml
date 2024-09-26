@@ -49,6 +49,11 @@ jobs:
     steps:
       - name: main Branch Checkout
         uses: actions/checkout@v4
+
+      - name: printing variables
+        run: echo ${vars.REGION}
+        run: echo ${vars.PROJECT_ID}
+        run: echo ${vars.SERVICE}
         
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
