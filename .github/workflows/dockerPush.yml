@@ -42,32 +42,29 @@ jobs:
   Cloud-Run-Deployment:
     runs-on: 'ubuntu-latest'
 
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
     steps:
       - name: main Branch Checkout
         uses: actions/checkout@v4
         
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
-        uses: 'google-github-actions/auth@f112390a2df9932162083945e46d439060d66ec2'
+        uses: google-github-actions/auth@v2.1.4
         with:
-          workload_identity_provider: '${{ secrets.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}'
+          credentials_json: ${{secrets.GOOGLE_SERVICE_ACCOUNT}}
+      
+      - name: Setup gcloud Cloud SDK Environment
+        uses: 'google-github-actions/setup-gcloud@v2'
 
       - name: 'Docker Authentication'
-        uses: 'docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567' # docker/login-action@v3
-        with:
-          username: 'oauth2accesstoken'
-          password: '${{ steps.auth.outputs.auth_token }}'
-          registry: '${{ vars.REGION }}-docker.pkg.dev'
-
-      - name: 'Build and Push Container'
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+      
+      - name: Build and Push Container
         run: |-
-          DOCKER_TAG="$${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.SERVICE }}:${{ github.sha }}"
-          docker build --tag "${DOCKER_TAG}" .
+          DOCKER_TAG="us-central1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/github-containers/${{ vars.SERVICE_NAME }}:${{ github.sha }}"
+          docker build --tag "${ DOCKER_TAG }" .
           docker push "${DOCKER_TAG}"
+
+      
       # - name: 'Deploy to Cloud Run'
 
         # END - Docker auth and build
