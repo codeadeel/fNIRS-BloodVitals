@@ -1,5 +1,6 @@
 # Human Blood Vitals using Functional Near-Infrared Spectroscopy ( fNIRS )
 ![DockerHub x64 CI][dockerx64Badge]
+![Google Cloud Run][cloudrunBadge]
 
 ![fNIRS Web Portal][mainportal]
 
@@ -13,4 +14,5 @@ The subject portal can be hosted & edge devices from the sensor can transmit the
 ##### For extensive documentation, please check [***wiki***](https://github.com/codeadeel/fNIRS-BloodVitals/wiki).
 
 [dockerx64Badge]: https://github.com/codeadeel/fNIRS-BloodVitals/actions/workflows/dockerPush.yml/badge.svg?event=push
+[cloudrunBadge]: https://github.com/codeadeel/fNIRS-BloodVitals/actions/workflows/cloudRunDeploy.yml/badge.svg?event=push
 [mainportal]: ./MarkDown-Data/fNIRSPortal.png

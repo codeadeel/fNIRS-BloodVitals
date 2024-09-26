@@ -16,55 +16,16 @@
 #     - name: Docker Login
 #       uses: docker/login-action@v3.3.0
 #       with:
-#         username: ${{secrets.DOCKER_USER}}
-#         password: ${{secrets.DOCKER_PASSWORD}}
+#         username: ${{ secrets.DOCKER_USER }}
+#         password: ${{ secrets.DOCKER_PASSWORD }}
     
 #     - name: Build Web Portal
-#       run: docker build -t ${{secrets.DOCKER_USER}}/private:fnirswebapp .
+#       run: docker build -t ${{ secrets.DOCKER_USER }}/private:fnirswebapp .
 
 #     - name: Push Build Container
-#       run: docker push ${{secrets.DOCKER_USER}}/private:fnirswebapp
+#       run: docker push ${{ secrets.DOCKER_USER }}/private:fnirswebapp
 
 
-
-
-
-
-
-name: 'Google Cloud Run Deployment'
-
-on:
-  workflow_dispatch:
-  push:
-    branches: [ "main" ]
-
-env:
-  DOCKER_TAG: "us-central1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/github-containers/${{ vars.SERVICE_NAME }}:${{ github.sha }}"
-
-jobs:
-  Cloud-Run-Deployment:
-    runs-on: 'ubuntu-latest'
-
-    steps:
-      - name: main Branch Checkout
-        uses: actions/checkout@v4
-        
-      - id: 'auth'
-        name: 'Authenticate to Google Cloud'
-        uses: google-github-actions/auth@v2.1.4
-        with:
-          credentials_json: ${{secrets.GOOGLE_SERVICE_ACCOUNT}}
-      
-      - name: Setup gcloud Cloud SDK Environment
-        uses: 'google-github-actions/setup-gcloud@v2'
-
-      - name: 'Docker Authentication'
-        run: gcloud auth configure-docker us-central1-docker.pkg.dev
-      
-      - name: Build and Push Container
-        run: |-
-          docker build -t ${{ env.DOCKER_TAG }} .
-          docker push ${{ env.DOCKER_TAG }}
 
       
       # - name: 'Deploy to Cloud Run'

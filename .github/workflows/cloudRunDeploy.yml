@@ -1,0 +1,35 @@
+name: 'Google Cloud Run Deployment'
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+env:
+  DOCKER_TAG: "${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }}"
+
+jobs:
+  Cloud-Run-Deployment:
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - name: main Branch Checkout
+        uses: actions/checkout@v4
+        
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v2.1.4
+        with:
+          credentials_json: ${{secrets.GOOGLE_SERVICE_ACCOUNT}}
+      
+      - name: Setup gcloud Cloud SDK Environment
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: 'Docker Authentication'
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+      
+      - name: Build and Push Container
+        run: |-
+          docker build -t ${{ env.DOCKER_TAG }} .
+          docker push ${{ env.DOCKER_TAG }}
+          
