@@ -26,10 +26,10 @@ jobs:
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
       
       - name: Build Web Portal
-        run: docker build -t ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.event.repository.updated_at }} .
+        run: docker build -t ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }} .
 
       - name: Push Build Container
-        run: docker push ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.event.repository.updated_at }}
+        run: docker push ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }}
       
       - name: Google Cloud Run Deploy
         uses: google-github-actions/deploy-cloudrun@v2.7.0
