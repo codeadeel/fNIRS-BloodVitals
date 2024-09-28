@@ -1,4 +1,4 @@
-name: 'Google Cloud Run Deployment'
+name: 'Google Cloud Artifact Registry'
 
 on:
   workflow_dispatch:
