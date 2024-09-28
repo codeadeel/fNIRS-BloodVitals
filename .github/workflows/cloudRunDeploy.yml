@@ -30,9 +30,3 @@ jobs:
 
       - name: Push Build Container
         run: docker push ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }}
-      
-      - name: Google Cloud Run Deploy
-        uses: google-github-actions/deploy-cloudrun@v2.7.0
-        with:
-          service: ${{ vars.SERVICE_NAME }}
-          region: ${{ vars.REGION }}
