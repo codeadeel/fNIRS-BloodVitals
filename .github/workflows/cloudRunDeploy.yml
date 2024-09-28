@@ -5,9 +5,6 @@ on:
   push:
     branches: [ "main" ]
 
-env:
-  DOCKER_TAG: "${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }}"
-
 jobs:
   Cloud-Run-Deployment:
     runs-on: 'ubuntu-latest'
@@ -15,21 +12,30 @@ jobs:
     steps:
       - name: main Branch Checkout
         uses: actions/checkout@v4
+      
+      - name: Test Python Script
+        run: python3 ./updateArtifact.py
         
-      - id: 'auth'
-        name: 'Authenticate to Google Cloud'
-        uses: google-github-actions/auth@v2.1.4
-        with:
-          credentials_json: ${{secrets.GOOGLE_SERVICE_ACCOUNT}}
+      # - id: 'auth'
+      #   name: 'Authenticate to Google Cloud'
+      #   uses: google-github-actions/auth@v2.1.4
+      #   with:
+      #     credentials_json: ${{secrets.GOOGLE_SERVICE_ACCOUNT}}
       
-      - name: Setup gcloud Cloud SDK Environment
-        uses: 'google-github-actions/setup-gcloud@v2'
+      # - name: Setup gcloud Cloud SDK Environment
+      #   uses: 'google-github-actions/setup-gcloud@v2'
 
-      - name: 'Docker Authentication'
-        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+      # - name: 'Docker Authentication'
+      #   run: gcloud auth configure-docker us-central1-docker.pkg.dev
       
-      - name: Build and Push Container
-        run: |-
-          docker build -t ${{ env.DOCKER_TAG }} .
-          docker push ${{ env.DOCKER_TAG }}
-          
+      # - name: Build Web Portal
+      #   run: docker build -t ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }} .
+
+      # - name: Push Build Container
+      #   run: docker push ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }}
+      
+      # - name: Google Cloud Run Deploy
+      #   uses: google-github-actions/deploy-cloudrun@v2.7.0
+      #   with:
+      #     service: ${{ vars.SERVICE_NAME }}
+      #     region: ${{ vars.REGION }}
