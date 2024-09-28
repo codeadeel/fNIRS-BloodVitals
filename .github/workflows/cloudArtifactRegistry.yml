@@ -6,7 +6,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  Cloud-Run-Deployment:
+  Cloud-Artifact-Registry:
     runs-on: 'ubuntu-latest'
 
     steps:
