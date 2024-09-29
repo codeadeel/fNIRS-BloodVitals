@@ -9,6 +9,14 @@ var cors = require('cors');
 
 // Initialize the authentication route
 const {loginHandler, jwtKey} = require('./routes/loginRoute');
+var expressPort = process.env.PORT;
+if(expressPort==undefined){
+    console.log('[ ENV: PORT ] : PORT not set, ( Default : 80 )')
+    expressPort = 80;
+} else {
+    console.log(`[ ENV: PORT ] : ${expressPort}`)
+    
+}
 
 // Initialize the backend app
 const app = express();
@@ -69,6 +77,6 @@ app.get('/*', (req, res)=>{
 });
 
 // Start the main server
-server.listen(80, ()=>{
+server.listen(expressPort, ()=>{
     console.log('Express Server Running');
 });
