@@ -1,0 +1,10 @@
+[Unit]
+Description=Network Handler Service for fNIRS
+
+[Service]
+User=root
+Group=root
+ExecStart=/root/networkHandler.py
+
+[Install]
+WantedBy=multi-user.target
