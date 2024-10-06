@@ -1,6 +1,6 @@
 # Edge Device for Human Blood Vitals using Functional Near-Infrared Spectroscopy ( fNIRS )
 
-![fNIRS Web Portal][mainportal]
+![fNIRS Captive Portal][captiveportal]
 
 The subject repository branch is responsible for edge device programming for finding human blood vitals using fNIRS. It involves following main components:
 
@@ -10,4 +10,4 @@ The subject repository branch is responsible for edge device programming for fin
 
 ##### For extensive documentation, please check [***wiki***](https://github.com/codeadeel/fNIRS-BloodVitals/wiki).
 
-[mainportal]: ./MarkDown-Data/fNIRSPortal.png
+[captiveportal]: ./MarkDown-Data/fNIRSCaptive.png
