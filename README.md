@@ -1,18 +1,13 @@
-# Human Blood Vitals using Functional Near-Infrared Spectroscopy ( fNIRS )
-![DockerHub x64 CI][dockerx64Badge]
-![Google Cloud Artifact Registry][cloudartifactBadge]
+# Edge Device for Human Blood Vitals using Functional Near-Infrared Spectroscopy ( fNIRS )
 
 ![fNIRS Web Portal][mainportal]
 
-The subject repository is responsible for finding human blood vitals using fNIRS. These vitals may include following:
+The subject repository branch is responsible for edge device programming for finding human blood vitals using fNIRS. It involves following main components:
 
-* Blood oxygen levels ***( Hb @ 850nm Wavelength )***
-* Water levels in blood ***( H2O @ 940nm Wavelength )***
-
-The subject portal can be hosted & edge devices from the sensor can transmit the data directly to the portal.
+* Raspberry Pi Zero 2W
+* SSD1306 (128x32) I2c OLED
+* ADS1115 ADC I2c 
 
 ##### For extensive documentation, please check [***wiki***](https://github.com/codeadeel/fNIRS-BloodVitals/wiki).
 
-[dockerx64Badge]: https://github.com/codeadeel/fNIRS-BloodVitals/actions/workflows/dockerPush.yml/badge.svg?event=push
-[cloudartifactBadge]: https://github.com/codeadeel/fNIRS-BloodVitals/actions/workflows/cloudArtifactRegistry.yml/badge.svg?event=push
 [mainportal]: ./MarkDown-Data/fNIRSPortal.png
