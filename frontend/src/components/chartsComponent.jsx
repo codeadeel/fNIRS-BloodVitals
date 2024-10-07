@@ -30,7 +30,7 @@ export default function ChartsComponent(){
                 data: {
                     labels: labelList,
                     datasets:[
-                        {label: 'Hb ( 850nm Wavelength )', data: []},
+                        {label: 'Hb ( 870nm Wavelength )', data: []},
                         {label: 'H2O ( 940nm Wavelength )', data: []}
                     ]
                 },
@@ -59,7 +59,7 @@ export default function ChartsComponent(){
                 data: {
                     labels: labelList,
                     datasets:[
-                        {label: 'Hb ( 850nm Wavelength )', data: []},
+                        {label: 'Hb ( 870nm Wavelength )', data: []},
                         {label: 'H2O ( 940nm Wavelength )', data: []}
                     ]
                 },
@@ -88,7 +88,7 @@ export default function ChartsComponent(){
                 data: {
                     labels: labelList,
                     datasets:[
-                        {label: 'Hb ( 850nm Wavelength )', data: []},
+                        {label: 'Hb ( 870nm Wavelength )', data: []},
                         {label: 'H2O ( 940nm Wavelength )', data: []}
                     ]
                 },
@@ -117,7 +117,7 @@ export default function ChartsComponent(){
                 data: {
                     labels: labelList,
                     datasets:[
-                        {label: 'Hb ( 850nm Wavelength )', data: []},
+                        {label: 'Hb ( 870nm Wavelength )', data: []},
                         {label: 'H2O ( 940nm Wavelength )', data: []}
                     ]
                 },
@@ -146,7 +146,7 @@ export default function ChartsComponent(){
                 data: {
                     labels: labelList,
                     datasets:[
-                        {label: 'Hb ( 850nm Wavelength )', data: []},
+                        {label: 'Hb ( 870nm Wavelength )', data: []},
                         {label: 'H2O ( 940nm Wavelength )', data: []}
                     ]
                 },

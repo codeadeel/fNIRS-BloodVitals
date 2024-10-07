@@ -9,6 +9,7 @@ services:
     image: codeadeel/private:fnirswebapp
     container_name: fnirswebapp
     hostname: fnirswebapp
+    restart: always
     expose:
       - 8080
     environment:
