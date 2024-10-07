@@ -29,15 +29,9 @@ def connect2Network(ssid, password):
         conn = subprocess.run(f"ping {hostName} -c 1", shell=True, text=True, capture_output=True)
         if conn.returncode==0:
             print(f"[ PING @ {hostName} ] : {conn.stdout}")
-            toggle = True
-            while True:
-                if toggle:
-                    toggle = False
-                    oledisp.displayImage("/root/logoBitmap.png")
-                else:
-                    toggle = True
-                    oledisp.upstreamCheck()
-                sleep(10)
+            oledisp.displayImage("/root/logoBitmap.png")
+            sleep(7)
+            oledisp.upstreamCheck()
             return f"[ PING @ {hostName} ] : {conn.stdout}"
         else:
             print(f"[ PING @ {hostName} ] : {conn.stderr}")

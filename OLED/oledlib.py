@@ -149,7 +149,8 @@ class oled:
 # %%
 # Execution
 if __name__=="__main__":
-    oledDisp = oled()
+    print("TO BE USED AS MODULE ONLY !!!")
+    # oledDisp = oled()
     # oledDisp.displayImage("/home/aeelab/PSAU.png")
     # oledDisp.showHotspot(wifissid="fNIRS @ Edge", wifipass="aeelab123", wifigate="10 . 10 . 10 . 1 / 24")
     # oledDisp.gatewayAssignmentError()
