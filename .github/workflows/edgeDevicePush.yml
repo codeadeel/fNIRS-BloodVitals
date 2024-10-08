@@ -42,10 +42,13 @@ jobs:
       run:  |
         cd ./frontend
         npm install
-        npm run buil
+        npm run build
         mv ./dist ../
         cd ../
+        tar -cvf ./fnirsEdgeUpdate.tar ./dist
         ls -lah ./dist
+        tar -xvf ./fnirsEdgeUpdate.tar
+        ls -lah
 
     # - name: ZeroTier Login
     #   uses: zerotier/github-action@v1
