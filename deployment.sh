@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo $(pwd)
-
 DEPLOYMENT_DIRECTORY=./services/fnirswebapp
 
 # Creating directory for deployment
@@ -9,7 +7,7 @@ mkdir -p $DEPLOYMENT_DIRECTORY
 
 # Shutdown docker-compose if file already exist & remove existing Docker Image
 if [ -e "$DEPLOYMENT_DIRECTORY/docker-compose.yml" ]; then
-    docker compose --profile deployment down
+    docker compose --profile deployment down -f $DEPLOYMENT_DIRECTORY/docker-compose.yml
     docker rmi codeadeel/private:fnirswebapp
 else 
     echo "docker-compose.yml not Found"
