@@ -64,8 +64,8 @@ jobs:
       shell: bash
       run: |
         scp -o "StrictHostKeyChecking no" -i ./tempKey ./package.tar ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }}:/home/${{ secrets.GOOGLE_VM_USER }}/
-        scp -o "StrictHostKeyChecking no" -i ./tempKey ./version ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }}:/home/${{ secrets.GOOGLE_VM_USER }}/ /var/www/html/ftpServer/fnirsEdgeDevice/
-        scp -o "StrictHostKeyChecking no" -i ./tempKey ./install.sh ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }}:/home/${{ secrets.GOOGLE_VM_USER }}/ /var/www/html/ftpServer/fnirsEdgeDevice/
+        scp -o "StrictHostKeyChecking no" -i ./tempKey ./version ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }}:/home/${{ secrets.GOOGLE_VM_USER }}/
+        scp -o "StrictHostKeyChecking no" -i ./tempKey ./install.sh ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }}:/home/${{ secrets.GOOGLE_VM_USER }}/
         ssh -o "StrictHostKeyChecking no" -i ./tempKey ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }} sudo mv /home/${{ secrets.GOOGLE_VM_USER }}/package.tar /var/www/html/ftpServer/fnirsEdgeDevice/package.tar
         ssh -o "StrictHostKeyChecking no" -i ./tempKey ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }} sudo mv /home/${{ secrets.GOOGLE_VM_USER }}/version /var/www/html/ftpServer/fnirsEdgeDevice/version
         ssh -o "StrictHostKeyChecking no" -i ./tempKey ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }} sudo mv /home/${{ secrets.GOOGLE_VM_USER }}/install.sh /var/www/html/ftpServer/fnirsEdgeDevice/install.sh
