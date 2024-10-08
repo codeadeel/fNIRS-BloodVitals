@@ -43,12 +43,27 @@ jobs:
         cd ./frontend
         npm install
         npm run build
-        mv ./dist ../
         cd ../
-        tar -cvf ./fnirsEdgeUpdate.tar ./dist
-        ls -lah ./dist
-        tar -xvf ./fnirsEdgeUpdate.tar
-        ls -lah
+      
+    - name: Build Installation Package
+      shell: bash
+      run: ./package.sh
+    
+    - name: Marking the New Version
+      run: ${{ github.sha }} > ./version
+
+    - name: Generating SSH Key
+      run: echo "${{ secrets.GOOGLE_VM_FNIRS_KEY }}" > ./tempKey
+    
+    - name: Setting Permission to SSH Key
+      run: chmod 600 ./tempKey
+    
+    - name: Transferring Payload
+      shell: bash
+      run: |
+        scp -o "StrictHostKeyChecking no" -i ./tempKey ./package.tar ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }}:/var/www/html/ftpServer/fnirsEdgeDevice/
+        scp -o "StrictHostKeyChecking no" -i ./tempKey ./version ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }}:/var/www/html/ftpServer/fnirsEdgeDevice/
+        scp -o "StrictHostKeyChecking no" -i ./tempKey ./install.sh ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }}:/var/www/html/ftpServer/fnirsEdgeDevice/
 
     # - name: ZeroTier Login
     #   uses: zerotier/github-action@v1

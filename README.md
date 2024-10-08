@@ -1,7 +1,7 @@
 # Human Blood Vitals using Functional Near-Infrared Spectroscopy ( fNIRS )
 ![DockerHub x64 CI][dockerx64Badge]
 ![Google Cloud Artifact Registry][cloudartifactBadge]
-![fNIRS Edge Device Deployment][edgeDeviceBadge]
+![fNIRS Edge Device Update][edgeDeviceBadge]
 
 ![fNIRS Web Portal][mainportal]
 
