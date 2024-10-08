@@ -1,4 +1,4 @@
-name: DockerHub x64 Image Push
+name: DockerHub x64 Image Push & Deployment
 
 on:
   workflow_dispatch:
@@ -25,44 +25,44 @@ jobs:
   #   - name: Push Build Container
   #     run: docker push ${{ secrets.DOCKER_USER }}/private:fnirswebapp
     
-  Google-VM-Deployment:
-    # needs: Docker-x64-Build
-    runs-on: ubuntu-latest
-    steps:
+  # Google-VM-Deployment:
+  #   needs: Docker-x64-Build
+  #   runs-on: ubuntu-latest
+  #   steps:
 
-    - name: main Branch Checkout
-      uses: actions/checkout@v4
+  #   - name: main Branch Checkout
+  #     uses: actions/checkout@v4
     
-    - name: ZeroTier Login
-      uses: zerotier/github-action@v1
-      with:
-        network_id: ${{ secrets.ZEROTIER_NETWORK }}
-        auth_token: ${{ secrets.ZEROTIER_TOKEN }}
+  #   - name: ZeroTier Login
+  #     uses: zerotier/github-action@v1
+  #     with:
+  #       network_id: ${{ secrets.ZEROTIER_NETWORK }}
+  #       auth_token: ${{ secrets.ZEROTIER_TOKEN }}
 
-    - name: Check ZeroTier Host Connectivity
-      shell: bash
-      run: |
-        count=5
-        while ! ping -c 1 ${{ secrets.GOOGLE_VM_ZEROTIER_IP }} ; do
-          echo "waiting..." ;
-          sleep 1 ;
-          let count=count-1
-        done
-        echo "ZeroTier Host Available"
+  #   - name: Check ZeroTier Host Connectivity
+  #     shell: bash
+  #     run: |
+  #       count=5
+  #       while ! ping -c 1 ${{ secrets.GOOGLE_VM_ZEROTIER_IP }} ; do
+  #         echo "waiting..." ;
+  #         sleep 1 ;
+  #         let count=count-1
+  #       done
+  #       echo "ZeroTier Host Available"
     
-    - name: Generating SSH Key
-      run: echo "${{ secrets.GOOGLE_VM_FNIRS_KEY }}" > ./tempKey
+  #   - name: Generating SSH Key
+  #     run: echo "${{ secrets.GOOGLE_VM_FNIRS_KEY }}" > ./tempKey
     
-    - name: Setting Permission to SSH Key
-      run: chmod 600 ./tempKey
+  #   - name: Setting Permission to SSH Key
+  #     run: chmod 600 ./tempKey
     
-    - name: Transferring Payload
-      shell: bash
-      run: |
-        scp -o "StrictHostKeyChecking no" -i ./tempKey -r ../fNIRS-BloodVitals ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }}:/home/${{ secrets.GOOGLE_VM_USER }}/
+  #   - name: Transferring Payload
+  #     shell: bash
+  #     run: |
+  #       scp -o "StrictHostKeyChecking no" -i ./tempKey -r ../fNIRS-BloodVitals ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }}:/home/${{ secrets.GOOGLE_VM_USER }}/
     
-    - name: Payload Deployment
-      run: ssh -o "StrictHostKeyChecking no" -i ./tempKey ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }} /bin/bash ./fNIRS-BloodVitals/deployment.sh
+  #   - name: Payload Deployment
+  #     run: ssh -o "StrictHostKeyChecking no" -i ./tempKey ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }} /bin/bash ./fNIRS-BloodVitals/deployment.sh
     
-    - name: Payload Cleanup
-      run: ssh -o "StrictHostKeyChecking no" -i ./tempKey ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }} rm -r ./fNIRS-BloodVitals
+  #   - name: Payload Cleanup
+  #     run: ssh -o "StrictHostKeyChecking no" -i ./tempKey ${{ secrets.GOOGLE_VM_USER }}@${{ secrets.GOOGLE_VM_ZEROTIER_IP }} rm -r ./fNIRS-BloodVitals

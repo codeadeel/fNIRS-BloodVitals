@@ -1,0 +1,51 @@
+name: fNIRS Edge Device Deployment
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "fnirs-edge" ]
+
+jobs:
+  Edge-Device-1:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: main Branch Checkout
+      uses: actions/checkout@v4
+      with:
+        ref: fnirs-edge
+
+    - name: ZeroTier Login
+      uses: zerotier/github-action@v1
+      with:
+        network_id: ${{ secrets.ZEROTIER_NETWORK }}
+        auth_token: ${{ secrets.ZEROTIER_TOKEN }}
+    
+    - name: Check ZeroTier Host Connectivity
+      shell: bash
+      run: |
+        count=5
+        while ! ping -c 1 ${{ secrets.EDGE_DEVICE_1_ZEROTIER_IP }} ; do
+          echo "waiting..." ;
+          sleep 1 ;
+          let count=count-1
+        done
+        echo "ZeroTier Host Available"
+    
+    - name: Generating SSH Key
+      run: echo "${{ secrets.EDGE_DEVICE_1_FNIRS_KEY }}" > ./tempKey
+    
+    - name: Setting Permission to SSH Key
+      run: chmod 600 ./tempKey
+    
+    - name: Transferring Payload
+      shell: bash
+      run: |
+        scp -o "StrictHostKeyChecking no" -i ./tempKey -r ../fNIRS-BloodVitals ${{ secrets.EDGE_DEVICE_1_USER }}@${{ secrets.EDGE_DEVICE_1_ZEROTIER_IP }}:/home/${{ secrets.EDGE_DEVICE_1_USER }}/
+    
+    - name: Payload Deployment
+      run: ssh -o "StrictHostKeyChecking no" -i ./tempKey ${{ secrets.EDGE_DEVICE_1_USER }}@${{ secrets.EDGE_DEVICE_1_ZEROTIER_IP }} /bin/bash ./fNIRS-BloodVitals/deployment.sh
+    
+    - name: Payload Cleanup
+      run: ssh -o "StrictHostKeyChecking no" -i ./tempKey ${{ secrets.EDGE_DEVICE_1_USER }}@${{ secrets.EDGE_DEVICE_1_ZEROTIER_IP }} rm -r ./fNIRS-BloodVitals
+      
