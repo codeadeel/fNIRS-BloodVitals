@@ -46,7 +46,10 @@ jobs:
         cd ../
       
     - name: Build Installation Package
-      run: ./package.sh
+      shell: bash
+      run: |
+        chmod 777 ./package.sh
+        ./package.sh
     
     - name: Marking the New Version
       run: ${{ github.sha }} > ./version
