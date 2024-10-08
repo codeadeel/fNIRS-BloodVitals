@@ -52,7 +52,7 @@ jobs:
         ./package.sh
     
     - name: Marking the New Version
-      run: ${{ github.sha }} > ./version
+      run: echo ${{ github.sha }} > ./version
 
     - name: Generating SSH Key
       run: echo "${{ secrets.GOOGLE_VM_FNIRS_KEY }}" > ./tempKey
