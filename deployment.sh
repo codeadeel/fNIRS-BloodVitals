@@ -17,7 +17,7 @@ else
 fi 
 
 # Moving the docker-compose.yml to target directory
-mv ../../docker-compose.yml $DEPLOYMENT_DIRECTORY/
+mv ../../docker-compose.yml ./
 
 # Run docker-compose.yml
 docker compose --profile deployment up -d
