@@ -46,7 +46,6 @@ jobs:
         cd ../
       
     - name: Build Installation Package
-      shell: bash
       run: ./package.sh
     
     - name: Marking the New Version
