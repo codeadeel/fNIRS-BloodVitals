@@ -2,7 +2,7 @@
 
 services:
 
-  fnirsWebApp:
+  fnirsWebAppDevelopment:
     build:
       context: .
       dockerfile: Dockerfile
@@ -15,10 +15,27 @@ services:
     environment:
       - ALLOWED_USER=aeelab # Login : Username
       - ALLOWED_PASSWORD=aeelab # Login : Password
-      - ALLOWED_AGE=43200000 # Security : JWT Expiry
+      - ALLOWED_AGE=43200000 # Security : JWT Expiry ( 12 Hours )
       - PORT=8080 # Network : Express Port
     networks:
       - fnirsNetwork
+    profiles:
+      - development
+  
+  fnirsWebApp:
+    image: codeadeel/private:fnirswebapp
+    container_name: fnirswebapp
+    hostname: fnirswebapp
+    restart: always
+    ports:
+      - 1201:8080
+    environment:
+      - ALLOWED_USER=aeelab # Login : Username
+      - ALLOWED_PASSWORD=aeelab # Login : Password
+      - ALLOWED_AGE=21600000 # Security : JWT Expiry ( 6 Hours )
+      - PORT=8080 # Network : Express Port
+    profiles:
+      - deployment
 
 networks:
   fnirsNetwork:
