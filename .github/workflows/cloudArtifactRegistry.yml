@@ -1,32 +1,32 @@
-# name: 'Google Cloud Artifact Registry'
+name: 'Google Cloud Artifact Registry'
 
-# on:
-#   workflow_dispatch:
-#   push:
-#     branches: [ "main" ]
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
 
-# jobs:
-#   Cloud-Artifact-Registry:
-#     runs-on: 'ubuntu-latest'
+jobs:
+  Cloud-Artifact-Registry:
+    runs-on: 'ubuntu-latest'
 
-#     steps:
-#       - name: main Branch Checkout
-#         uses: actions/checkout@v4
+    steps:
+      - name: main Branch Checkout
+        uses: actions/checkout@v4
         
-#       - id: 'auth'
-#         name: 'Authenticate to Google Cloud'
-#         uses: google-github-actions/auth@v2.1.4
-#         with:
-#           credentials_json: ${{secrets.GOOGLE_SERVICE_ACCOUNT}}
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v2.1.4
+        with:
+          credentials_json: ${{secrets.GOOGLE_SERVICE_ACCOUNT}}
       
-#       - name: Setup gcloud Cloud SDK Environment
-#         uses: 'google-github-actions/setup-gcloud@v2'
+      - name: Setup gcloud Cloud SDK Environment
+        uses: 'google-github-actions/setup-gcloud@v2'
 
-#       - name: 'Docker Authentication'
-#         run: gcloud auth configure-docker us-central1-docker.pkg.dev
+      - name: 'Docker Authentication'
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
       
-#       - name: Build Web Portal
-#         run: docker build -t ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }} .
+      - name: Build Web Portal
+        run: docker build -t ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }} .
 
-#       - name: Push Build Container
-#         run: docker push ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }}
+      - name: Push Build Container
+        run: docker push ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }}
