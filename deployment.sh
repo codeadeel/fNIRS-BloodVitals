@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo $(pwd)
+
 DEPLOYMENT_DIRECTORY=./services/fnirswebapp
 
 # Creating directory for deployment
