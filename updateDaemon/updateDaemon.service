@@ -1,0 +1,11 @@
+[Unit]
+Description=Update Daemon for fNIRS
+After=fnirsService.service
+
+[Service]
+User=root
+Group=root
+ExecStart=/root/updateDaemon.py
+
+[Install]
+WantedBy=multi-user.target

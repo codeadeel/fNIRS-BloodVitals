@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# This file is responsible for network manager API
+
 # %%
 # Importing Libraries
 import os
@@ -13,8 +15,8 @@ import oledlib
 # %%
 # App Module
 app = Flask(__name__)
-if os.path.exists(os.getcwd() + '/portalAddress'):
-    with open(os.getcwd() + '/portalAddress', 'r') as file1:
+if os.path.exists('/root/portalAddress'):
+    with open('/root/portalAddress', 'r') as file1:
         os.environ['portalAddress'] = file1.read().replace("\"", "")
         print(os.environ['portalAddress'])
 else:
@@ -48,7 +50,7 @@ def conn2Net():
         os.environ['portalAddress'] = "fnirs.codeadeel.com"
     else:
         os.environ['portalAddress'] = hostName
-    with open(os.getcwd() + "/portalAddress", "w") as file2:
+    with open("/root/portalAddress", "w") as file2:
         file2.write(os.environ['portalAddress'].replace("\"", ""))
     print(f"[ NMCLI : Connection ] : {ssid} @ {password} >> {hostName}")
     newConn = subprocess.run(f"nmcli device wifi connect \"{ssid}\" password \"{password}\"", shell=True, text=True, capture_output=True)
