@@ -7,6 +7,7 @@ mkdir ./resources
 # Copying the resource files to target directory
 echo ">> Gathering Resources"
 mv ./frontend/dist ./resources/
+mv ./frontend/nginxCaptive.conf ./resources/default
 mv ./networkManager ./resources/
 mv ./OLED ./resources/
 mv ./requirements.txt ./resources/
