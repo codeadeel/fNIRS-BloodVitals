@@ -85,9 +85,13 @@ class oled:
         self.display.image(img)
         self.display.show()
 
-    def upstreamCheck(self):
+    def upstreamCheck(self, hostName):
         """
         This method is used to display if the system is working correctly
+
+        Arguments
+        =========
+        hostName : Server Address to connect to
         """
         img = Image.new("1", (self.oledWidth, self.oledHeight))
         draw = ImageDraw.Draw(img)
@@ -97,11 +101,57 @@ class oled:
         draw.text((0, fontHeight1), txt2, font=self.font, fill=255)
         txt3, fontWidth3, fontHeight3 = self.getFontSize("Dashboard :")
         draw.text((0, fontHeight1 + fontHeight2 + 1), txt3, font=self.font, fill=255);
-        txt4, fontWidth4, fontHeight4 = self.getFontSize("fnirs . codeadeel . com")
+        txt4, fontWidth4, fontHeight4 = self.getFontSize(hostName)
         draw.text((0, fontHeight1 + fontHeight2 + fontHeight3 + 2), txt4, font=self.font, fill=255);
         self.display.image(img)
         self.display.show()
 
+    def checkingUpdates(self):
+        """
+        This method is used to display if checking for updates
+        """
+        img = Image.new("1", (self.oledWidth, self.oledHeight))
+        draw = ImageDraw.Draw(img)
+        txt1, fontWidth1, fontHeight1 = self.getFontSize("fNIRS EDGE")
+        draw.text(((self.oledWidth//2)-(fontWidth1//2), -1), txt1, font=self.font, fill=255);
+        txt2, fontWidth2, fontHeight2 = self.getFontSize(f"Status : Checking Updates")
+        draw.text((0, fontHeight1), txt2, font=self.font, fill=255)
+        txt3, fontWidth3, fontHeight3 = self.getFontSize("ftp . codeadeel . com")
+        draw.text((0, fontHeight1 + fontHeight2 + 1), txt3, font=self.font, fill=255);
+        self.display.image(img)
+        self.display.show()
+
+    def updating(self):
+        """
+        This method is used to display if the system is updating
+        """
+        img = Image.new("1", (self.oledWidth, self.oledHeight))
+        draw = ImageDraw.Draw(img)
+        txt1, fontWidth1, fontHeight1 = self.getFontSize("fNIRS EDGE")
+        draw.text(((self.oledWidth//2)-(fontWidth1//2), -1), txt1, font=self.font, fill=255);
+        txt2, fontWidth2, fontHeight2 = self.getFontSize(f"Status : Updating")
+        draw.text((0, fontHeight1), txt2, font=self.font, fill=255)
+        txt3, fontWidth3, fontHeight3 = self.getFontSize("ftp . codeadeel . com")
+        draw.text((0, fontHeight1 + fontHeight2 + 1), txt3, font=self.font, fill=255);
+        txt4, fontWidth4, fontHeight4 = self.getFontSize("DO NOT TURN OFF !!!")
+        draw.text((0, fontHeight1 + fontHeight2 + fontHeight3 + 2), txt4, font=self.font, fill=255);
+        self.display.image(img)
+        self.display.show()
+    
+    def pingError(self):
+        """
+        This method is used to display if server if unable to ping
+        """
+        img = Image.new("1", (self.oledWidth, self.oledHeight))
+        draw = ImageDraw.Draw(img)
+        txt1, fontWidth1, fontHeight1 = self.getFontSize("fNIRS EDGE")
+        draw.text(((self.oledWidth//2)-(fontWidth1//2), -1), txt1, font=self.font, fill=255);
+        txt2, fontWidth2, fontHeight2 = self.getFontSize(f"ERROR : Code - 2")
+        draw.text((0, fontHeight1), txt2, font=self.font, fill=255)
+        txt3, fontWidth3, fontHeight3 = self.getFontSize("Server not Available")
+        draw.text((0, fontHeight1 + fontHeight2 + 1), txt3, font=self.font, fill=255);
+        self.display.image(img)
+        self.display.show()
 
     def gatewayAssignmentError(self):
         """
@@ -146,14 +196,29 @@ class oled:
         draw.text((0, fontHeight1 + fontHeight2 + fontHeight3 + 2), txt4, font=self.font, fill=255);
         self.display.image(img)
         self.display.show()
+
+    def throwError(self, errcode, errdesc):
+        """
+        This method is used to display general error and description
+
+        Arguments
+        =========
+        errcode : Error code to display
+        errdesc : Errot description to display
+        """
+        img = Image.new("1", (self.oledWidth, self.oledHeight))
+        draw = ImageDraw.Draw(img)
+        txt1, fontWidth1, fontHeight1 = self.getFontSize("fNIRS EDGE")
+        draw.text(((self.oledWidth//2)-(fontWidth1//2), -1), txt1, font=self.font, fill=255);
+        txt2, fontWidth2, fontHeight2 = self.getFontSize(f"ERROR : {errcode}")
+        draw.text((0, fontHeight1), txt2, font=self.font, fill=255)
+        txt3, fontWidth3, fontHeight3 = self.getFontSize(errdesc)
+        draw.text((0, fontHeight1 + fontHeight2 + 1), txt3, font=self.font, fill=255);
+        self.display.image(img)
+        self.display.show()
+
+    
 # %%
 # Execution
 if __name__=="__main__":
     print("TO BE USED AS MODULE ONLY !!!")
-    # oledDisp = oled()
-    # oledDisp.displayImage("/home/aeelab/PSAU.png")
-    # oledDisp.showHotspot(wifissid="fNIRS @ Edge", wifipass="aeelab123", wifigate="10 . 10 . 10 . 1 / 24")
-    # oledDisp.gatewayAssignmentError()
-    # oledDisp.credsError()
-    # oledDisp.fatalError()
-    # oledDisp.upstreamCheck()

@@ -10,7 +10,7 @@ export default function App(){
   // Initialization of global states
   const [wifissid, setssid] = useState('');
   const [passwd, setPasswd] = useState('');
-  const [serverAddr, setServerAddr] = useState('');
+  const [serverAddr, setServerAddr] = useState('fnirs.codeadeel.com');
   const [submitButton, setSubmitButton] = useState('primary');
   const [currentImage, setCurrentImage] = useState(PsauImage);
   const [creditStatement, setCreditStatement] = useState('Made with ❤️ in Saudi Arabia');
