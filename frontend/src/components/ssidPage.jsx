@@ -10,7 +10,7 @@ import FnirsContext from "../tools/contextStore";
 
 export default function SSIDPage(){
     // Get states from context store
-    const {wifissid, setssid, passwd, setPasswd, submitButton, setSubmitButton, currentImage, creditStatement} = useContext(FnirsContext);
+    const {wifissid, setssid, passwd, setPasswd, serverAddr, setServerAddr, submitButton, setSubmitButton, currentImage, creditStatement} = useContext(FnirsContext);
 
     const ssidSetter = (event) => {
         setssid(event.target.value);
@@ -18,16 +18,21 @@ export default function SSIDPage(){
     const passwdSetter = (event) => {
         setPasswd(event.target.value);
     };
+    const serverSetter = (event) => {
+        setServerAddr(event.target.value);
+    };
     const submitter = () => {
         axios.get(window.location.origin + ":5003/api/network/connect", {
             params: {
                 ssid: wifissid,
-                password: passwd
+                password: passwd,
+                server: serverAddr
             }
         }).then(()=>{
             setSubmitButton("primary");
             setssid('');
             setPasswd('');
+            setServerAddr('');
         }).catch(()=>{
             setSubmitButton('danger');
             toast.error('Check for Network Changes', {
@@ -37,6 +42,7 @@ export default function SSIDPage(){
         });
         setssid('');
         setPasswd('');
+        setServerAddr('');
     };
 
     // Setup press enter to submit login
@@ -51,7 +57,7 @@ export default function SSIDPage(){
         return ()=>{
             window.removeEventListener('keypress', enterPress);
         };
-    },[wifissid, passwd]);
+    },[wifissid, passwd, serverAddr]);
 
     return (
         <div className="flex flex-col h-dvh">
@@ -64,6 +70,7 @@ export default function SSIDPage(){
                     <CardBody className="gap-3">
                         <Input type="text" label="SSID" value={wifissid} onChange={ssidSetter}/>
                         <Input type="password" label="Password" value={passwd} onChange={passwdSetter}/>
+                        <Input type="text" label="Server Address (Optional)" value={serverAddr} onChange={serverSetter}/>
                     </CardBody>
                     <CardFooter className="flex flex-row justify-end">
                         <Button color={submitButton} variant="shadow" className="mb-2" onPress={submitter}>Connect</Button>

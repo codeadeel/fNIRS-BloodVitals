@@ -10,6 +10,7 @@ export default function App(){
   // Initialization of global states
   const [wifissid, setssid] = useState('');
   const [passwd, setPasswd] = useState('');
+  const [serverAddr, setServerAddr] = useState('');
   const [submitButton, setSubmitButton] = useState('primary');
   const [currentImage, setCurrentImage] = useState(PsauImage);
   const [creditStatement, setCreditStatement] = useState('Made with ❤️ in Saudi Arabia');
@@ -34,6 +35,7 @@ export default function App(){
     <FnirsEdgeContext.Provider value={{
       wifissid, setssid,
       passwd, setPasswd,
+      serverAddr, setServerAddr,
       submitButton, setSubmitButton,
       currentImage, creditStatement
     }}>
