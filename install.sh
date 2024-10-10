@@ -6,6 +6,7 @@ apt-get update
 apt-get install -y wget curl python3 python3-pip python3-gpiozero python3-smbus i2c-tools nginx
 
 echo ">> Downloading Resources"
+cd /root
 wget -O ./package.tar https://www.ftp.codeadeel.com/fnirsEdgeDevice/package.tar
 wget -O ./version https://www.ftp.codeadeel.com/fnirsEdgeDevice/version
 
