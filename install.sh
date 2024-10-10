@@ -43,5 +43,8 @@ echo ">> Cleanup"
 rm -r ./resources
 rm ./package.tar
 
+echo ">> Waiting for Services to Reboot"
+sleep 10
+
 echo ">> Rebooting"
 reboot
