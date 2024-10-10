@@ -28,15 +28,19 @@ fi
 echo ">>> Creating fNIRS Network Service"
 mv ./resources/networkManager/networkHandler.py /root/
 mv ./resources/networkManager/portalAddress /root/
+mv ./resources/updateDaemon/updateDaemon.py /root/
 mv ./resources/OLED/oledlib.py /root/
 mv ./resources/OLED/logoBitmap.png /root/
 chmod 777 /root/networkHandler.py
 chmod 777 /root/oledlib.py
+chmod 777 /root/updateDaemon.py
 mv ./resources/networkManager/fnirsNetwork.service /etc/systemd/system/
 systemctl enable fnirsNetwork.service
 systemctl restart fnirsNetwork.service
-#mv ./frontend/dist /root/
 
 echo ">> Cleanup"
 rm -r ./resources
 rm ./package.tar
+
+echo ">> Rebooting"
+reboot
