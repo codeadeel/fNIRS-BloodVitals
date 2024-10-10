@@ -138,6 +138,40 @@ class oled:
         self.display.image(img)
         self.display.show()
     
+    def shuttingDown(self):
+        """
+        This method is used to display if the system is shutting down
+        """
+        img = Image.new("1", (self.oledWidth, self.oledHeight))
+        draw = ImageDraw.Draw(img)
+        txt1, fontWidth1, fontHeight1 = self.getFontSize("fNIRS EDGE")
+        draw.text(((self.oledWidth//2)-(fontWidth1//2), -1), txt1, font=self.font, fill=255);
+        txt2, fontWidth2, fontHeight2 = self.getFontSize(f"Status : Shutdown")
+        draw.text((0, fontHeight1), txt2, font=self.font, fill=255)
+        txt3, fontWidth3, fontHeight3 = self.getFontSize("Update Completed")
+        draw.text((0, fontHeight1 + fontHeight2 + 1), txt3, font=self.font, fill=255);
+        txt4, fontWidth4, fontHeight4 = self.getFontSize("SHUTTING DOWN !!!")
+        draw.text((0, fontHeight1 + fontHeight2 + fontHeight3 + 2), txt4, font=self.font, fill=255);
+        self.display.image(img)
+        self.display.show()
+    
+    def shutdownFailed(self):
+        """
+        This method is used to display if the system is shutting down
+        """
+        img = Image.new("1", (self.oledWidth, self.oledHeight))
+        draw = ImageDraw.Draw(img)
+        txt1, fontWidth1, fontHeight1 = self.getFontSize("fNIRS EDGE")
+        draw.text(((self.oledWidth//2)-(fontWidth1//2), -1), txt1, font=self.font, fill=255);
+        txt2, fontWidth2, fontHeight2 = self.getFontSize(f"Status : Shutdown")
+        draw.text((0, fontHeight1), txt2, font=self.font, fill=255)
+        txt3, fontWidth3, fontHeight3 = self.getFontSize("SHUTTING DOWN FAILED")
+        draw.text((0, fontHeight1 + fontHeight2 + 1), txt3, font=self.font, fill=255);
+        txt4, fontWidth4, fontHeight4 = self.getFontSize("Require Manual Shutdown")
+        draw.text((0, fontHeight1 + fontHeight2 + fontHeight3 + 2), txt4, font=self.font, fill=255);
+        self.display.image(img)
+        self.display.show()
+    
     def pingError(self):
         """
         This method is used to display if server if unable to ping
