@@ -58,6 +58,11 @@ io.on('connection', (socket) => {
     socket.on('serverMSGTSI', (msg)=>{
         socket.broadcast.emit('upMSGTSI', msg);
     });
+
+    // Device ID
+    socket.on('serverDevID', (msg)=>{
+        socket.broadcast.emit('devID', msg);
+    });
 });
 
 // Initialize express middlewares

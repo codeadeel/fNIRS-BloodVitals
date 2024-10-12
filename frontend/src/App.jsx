@@ -17,6 +17,7 @@ export default function App(){
   const [userName, setUserName] = useState('');
   const [passwd, setPasswd] = useState('');
   const [loginButton, setLoginButton] = useState('primary');
+  const [deviceID, setDeviceID] = useState('');
   const [sideMenu, setSideMenu] = useState(false);
   const [liveStreamPageActive, setLiveStreamPageActive] = useState('text-current font-sans');
   const [infoPageActive, setInfoPageActive] = useState('text-current font-sans');
@@ -53,6 +54,7 @@ export default function App(){
       userName, setUserName,
       passwd, setPasswd,
       loginButton, setLoginButton,
+      deviceID, setDeviceID,
       sideMenu, setSideMenu,
       liveStreamPageActive, setLiveStreamPageActive,
       infoPageActive, setInfoPageActive,

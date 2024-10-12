@@ -6,7 +6,7 @@ import FnirsContext from "../tools/contextStore";
 
 export default function InfoComponent(){
     // Import states from the context store
-    const {setLiveStreamPageActive, setInfoPageActive, fnirsCookie, creditStatement} = useContext(FnirsContext);
+    const {setLiveStreamPageActive, setInfoPageActive, deviceID, fnirsCookie, creditStatement} = useContext(FnirsContext);
     let currDate = new Date();
     currDate = currDate.toLocaleString();
 
@@ -37,6 +37,10 @@ export default function InfoComponent(){
                     <div className="flex flex-row justify-start gap-x-3 my-3">
                         <div className="font-sans font-medium">Session Time: </div>
                         <div className="w-1/2 truncate overflow-hidden">{currDate.split(", ")[1]}</div>
+                    </div>
+                    <div className="flex flex-row justify-start gap-x-3 my-3">
+                        <div className="font-sans font-medium">Device ID: </div>
+                        <div className="w-1/2 truncate overflow-hidden">{deviceID}</div>
                     </div>
                 </div>
                 <Divider className="sm:hidden" />

@@ -8,7 +8,7 @@ import ChartsComponent from "./chartsComponent";
 
 export default function LiveStream(){
     // Import states from the context store
-    const {setLiveStreamPageActive, setInfoPageActive, deltaAChart, diffDeltaAChart, deltaCChart, highpassChart, tsiChart} = useContext(FnirsContext);
+    const {setDeviceID, setLiveStreamPageActive, setInfoPageActive, deltaAChart, diffDeltaAChart, deltaCChart, highpassChart, tsiChart} = useContext(FnirsContext);
 
     // Initializes labels & values to the cards
     const [deltaAAvg0Label, setDeltaAAvg0Label] = useState('Avg Label');
@@ -225,12 +225,18 @@ export default function LiveStream(){
             });
         };
 
+        // Setting Device ID
+        const idSetter = (data) => {
+            setDeviceID(data);
+        };
+
         // Attach update function to socket event triggers
         fnirsSocket.on('upMSGA', updateDeltaA);
         fnirsSocket.on('upMSGdeltaA', updateDiffDeltaA);
         fnirsSocket.on('upMSGC', updateDeltaC);
         fnirsSocket.on('upMSGCHP', updateHighpass);
         fnirsSocket.on('upMSGTSI', updateTsi);
+        fnirsSocket.on('devID', idSetter);
 
         // Detach the socket of component unmount
         return ()=> {
@@ -240,6 +246,7 @@ export default function LiveStream(){
                 fnirsSocket.off('upMSGC', updateDeltaC);
                 fnirsSocket.off('upMSGCHP', updateHighpass);
                 fnirsSocket.off('upMSGTSI', updateTsi);
+                fnirsSocket.off('devID', idSetter);
                 fnirsSocket.disconnect();
             }
         };
