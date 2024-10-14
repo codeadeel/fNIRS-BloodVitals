@@ -37,7 +37,7 @@ def getDeviceID():
     else:
         with open('/root/deviceid', 'r') as file3:
             currentDeviceID = file3.read().replace("\"", "")
-    jsonify(currentDeviceID), 200
+    return jsonify(currentDeviceID), 200
             
 @app.get('/api/network/portaladdress')
 def checkPortalAddress():
