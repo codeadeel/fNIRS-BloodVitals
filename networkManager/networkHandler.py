@@ -6,6 +6,7 @@
 # Importing Libraries
 import os
 import subprocess
+import random
 from time import sleep
 import requests
 from flask import Flask, request, jsonify
@@ -24,6 +25,20 @@ else:
 infPort = int(os.environ.get("inferencePort", 5003))
 oledisp = oledlib.oled()
 
+@app.get('/api/device/id')
+def getDeviceID():
+    """
+    This functinoal API is used to get the Device ID
+    """
+    if not os.path.exists('/root/deviceid'):
+        currentDeviceID = ''.join(random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', k = 15))
+        with open('/root/deviceid', 'w') as file3:
+            file3.write(currentDeviceID)
+    else:
+        with open('/root/deviceid', 'r') as file3:
+            currentDeviceID = file3.read().replace("\"", "")
+    jsonify(currentDeviceID), 200
+            
 @app.get('/api/network/portaladdress')
 def checkPortalAddress():
     """
