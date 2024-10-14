@@ -102,13 +102,21 @@ export default function LiveStream(){
 
         // Update Raw Sensor Data
         const updateDeltaA = (data) => {
-            deltaAChart.current.data.datasets[0].data.push(data['A0']);
-            deltaAChart.current.data.datasets[1].data.push(data['A1']);
+            deltaAChart.current.data.datasets[0].data.push(data['870nm']);
+            deltaAChart.current.data.datasets[1].data.push(data['940nm']);
+            deltaAChart.current.data.datasets[2].data.push(data['1200nm']);
+            deltaAChart.current.data.datasets[3].data.push(data['1550nm']);
             if(deltaAChart.current.data.datasets[0].data.length > deltaAChart.current.data.labels.length){
                 deltaAChart.current.data.datasets[0].data.shift();
             }
             if(deltaAChart.current.data.datasets[1].data.length > deltaAChart.current.data.labels.length){
                 deltaAChart.current.data.datasets[1].data.shift();
+            }
+            if(deltaAChart.current.data.datasets[2].data.length > deltaAChart.current.data.labels.length){
+                deltaAChart.current.data.datasets[2].data.shift();
+            }
+            if(deltaAChart.current.data.datasets[3].data.length > deltaAChart.current.data.labels.length){
+                deltaAChart.current.data.datasets[3].data.shift();
             }
             deltaAChart.current.update('none');
             setDeltaAAvg0(()=>{
@@ -127,13 +135,21 @@ export default function LiveStream(){
 
         // Update Diff Delta A Data
         const updateDiffDeltaA = (data) => {
-            diffDeltaAChart.current.data.datasets[0].data.push(data['A0']);
-            diffDeltaAChart.current.data.datasets[1].data.push(data['A1']);
+            diffDeltaAChart.current.data.datasets[0].data.push(data['870nm']);
+            diffDeltaAChart.current.data.datasets[1].data.push(data['940nm']);
+            diffDeltaAChart.current.data.datasets[0].data.push(data['1200nm']);
+            diffDeltaAChart.current.data.datasets[1].data.push(data['1550nm']);
             if(diffDeltaAChart.current.data.datasets[0].data.length > diffDeltaAChart.current.data.labels.length){
                 diffDeltaAChart.current.data.datasets[0].data.shift();
             }
             if(diffDeltaAChart.current.data.datasets[1].data.length > diffDeltaAChart.current.data.labels.length){
                 diffDeltaAChart.current.data.datasets[1].data.shift();
+            }
+            if(diffDeltaAChart.current.data.datasets[2].data.length > diffDeltaAChart.current.data.labels.length){
+                diffDeltaAChart.current.data.datasets[2].data.shift();
+            }
+            if(diffDeltaAChart.current.data.datasets[3].data.length > diffDeltaAChart.current.data.labels.length){
+                diffDeltaAChart.current.data.datasets[3].data.shift();
             }
             diffDeltaAChart.current.update('none');
             setDiffDeltaAAvg0(()=>{
@@ -152,8 +168,8 @@ export default function LiveStream(){
 
         // Update Concentration Data
         const updateDeltaC = (data) => {
-            deltaCChart.current.data.datasets[0].data.push(data['A0']);
-            deltaCChart.current.data.datasets[1].data.push(data['A1']);
+            deltaCChart.current.data.datasets[0].data.push(data['870nm']);
+            deltaCChart.current.data.datasets[1].data.push(data['940nm']);
             if(deltaCChart.current.data.datasets[0].data.length > deltaCChart.current.data.labels.length){
                 deltaCChart.current.data.datasets[0].data.shift();
             }
@@ -177,8 +193,8 @@ export default function LiveStream(){
 
         // Update Concentration @ Highpass Data
         const updateHighpass = (data) => {
-            highpassChart.current.data.datasets[0].data.push(data['A0']);
-            highpassChart.current.data.datasets[1].data.push(data['A1']);
+            highpassChart.current.data.datasets[0].data.push(data['870nm']);
+            highpassChart.current.data.datasets[1].data.push(data['940nm']);
             if(highpassChart.current.data.datasets[0].data.length > highpassChart.current.data.labels.length){
                 highpassChart.current.data.datasets[0].data.shift();
             }
@@ -202,8 +218,8 @@ export default function LiveStream(){
 
         // Update Tissue Saturation Index Data
         const updateTsi = (data) => {
-            tsiChart.current.data.datasets[0].data.push(data['A0']);
-            tsiChart.current.data.datasets[1].data.push(data['A1']);
+            tsiChart.current.data.datasets[0].data.push(data['870nm']);
+            tsiChart.current.data.datasets[1].data.push(data['940nm']);
             if(tsiChart.current.data.datasets[0].data.length > tsiChart.current.data.labels.length){
                 tsiChart.current.data.datasets[0].data.shift();
             }

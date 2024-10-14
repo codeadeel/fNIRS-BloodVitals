@@ -31,7 +31,9 @@ export default function ChartsComponent(){
                     labels: labelList,
                     datasets:[
                         {label: 'Hb ( 870nm Wavelength )', data: []},
-                        {label: 'H2O ( 940nm Wavelength )', data: []}
+                        {label: 'H2O ( 940nm Wavelength )', data: []},
+                        {label: '1200nm Wavelength', data: []},
+                        {label: '1500nm Wavelength', data: []}
                     ]
                 },
                 options: {
@@ -60,7 +62,9 @@ export default function ChartsComponent(){
                     labels: labelList,
                     datasets:[
                         {label: 'Hb ( 870nm Wavelength )', data: []},
-                        {label: 'H2O ( 940nm Wavelength )', data: []}
+                        {label: 'H2O ( 940nm Wavelength )', data: []},
+                        {label: '1200nm Wavelength', data: []},
+                        {label: '1500nm Wavelength', data: []}
                     ]
                 },
                 options: {

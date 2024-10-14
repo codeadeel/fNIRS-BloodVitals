@@ -33,7 +33,7 @@ process.on('SIGINT', () => {
 io.on('connection', (socket) => {
     console.log('[ SocketIO : CONNECTION ] : Client Connected');
 
-    // msg: {"A0": someValue, "A1": someValue}
+    // msg: {"870nm": someValue, "940nm": someValue, "1200nm": someValue, "1550nm": someValue}
     // Raw Sensor Value
     socket.on('serverMSGA', (msg)=>{
         socket.broadcast.emit('upMSGA', msg);
