@@ -97,7 +97,7 @@ export default function LiveStream(){
             for(let i=0; i<lister.length; i++){
                 adder += lister[i];
             }
-            return (adder/lister.length).toFixed(5);
+            return (adder/lister.length).toFixed(3);
         }
 
         // Update Raw Sensor Data
@@ -228,16 +228,16 @@ export default function LiveStream(){
             }
             tsiChart.current.update('none');
             setTsiAvg0(()=>{
-                return (avgFinder(tsiChart.current.data.datasets[0].data) * 100).toFixed(5);
+                return avgFinder(tsiChart.current.data.datasets[0].data);
             });
             setTsiAvg1(()=>{
-                return (avgFinder(tsiChart.current.data.datasets[1].data) * 100).toFixed(5);
+                return avgFinder(tsiChart.current.data.datasets[1].data);
             });
             setTsiCurrent0(()=>{
-                return (tsiChart.current.data.datasets[0].data[tsiChart.current.data.datasets[0].data.length-1] * 100).toFixed(2);
+                return tsiChart.current.data.datasets[0].data[tsiChart.current.data.datasets[0].data.length-1].toFixed(2);
             });
             setTsiCurrent1(()=>{
-                return (tsiChart.current.data.datasets[1].data[tsiChart.current.data.datasets[1].data.length-1] * 100).toFixed(2);
+                return tsiChart.current.data.datasets[1].data[tsiChart.current.data.datasets[1].data.length-1].toFixed(2);
             });
         };
 
