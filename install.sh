@@ -32,9 +32,11 @@ mv ./resources/networkManager/portalAddress /root/
 mv ./resources/OLED/oledlib.py /root/
 mv ./resources/OLED/logoBitmap.png /root/
 mv ./resources/updateDaemon/updateDaemon.py /root/
+mv ./resources/adcDaemon/adcDaemon.py /root/
 chmod 777 /root/networkHandler.py
 chmod 777 /root/oledlib.py
 chmod 777 /root/updateDaemon.py
+chmod 777 /root/adcDaemon.py
 mv ./resources/networkManager/fnirsNetwork.service /etc/systemd/system/
 systemctl enable fnirsNetwork.service
 systemctl restart fnirsNetwork.service
@@ -44,6 +46,12 @@ if [ ! -e "/etc/systemd/system/updateDaemon.service" ]; then
 	mv ./resources/updateDaemon/updateDaemon.service /etc/systemd/system/
 	systemctl enable updateDaemon.service
 	systemctl restart updateDaemon.servce
+fi
+if [ ! -e "/etc/systemd/system/adcDaemon.service" ]; then
+	echo ">>> Creating ADC Daemon Service"
+	mv ./resources/adcDaemon/adcDaemon.service /etc/systemd/system/
+	systemctl enable adcDaemon.service
+	systemctl restart adcDaemon.servce
 fi
 
 echo ">> Cleanup"

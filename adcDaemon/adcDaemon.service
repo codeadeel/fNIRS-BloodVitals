@@ -1,0 +1,11 @@
+[Unit]
+Description=ADC Daemon for fNIRS
+After=updateDaemon.service
+
+[Service]
+User=root
+Group=root
+ExecStart=/root/adcDaemon.py
+
+[Install]
+WantedBy=multi-user.target

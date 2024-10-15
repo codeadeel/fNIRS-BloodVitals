@@ -8,6 +8,7 @@ adafruit-circuitpython-ssd1306==2.12.17
 adafruit-circuitpython-typing==1.11.0
 Adafruit-PlatformDetect==3.74.0
 Adafruit-PureIO==1.1.11
+bidict==0.23.1
 binho-host-adapter==0.1.6
 blinker==1.8.2
 certifi==2022.9.24
@@ -16,8 +17,12 @@ charset-normalizer==3.0.1
 click==8.1.7
 colorzero==2.0
 distro==1.8.0
+dnspython==2.7.0
+eventlet==0.37.0
 Flask==3.0.3
 gpiozero==2.0.1
+greenlet==3.1.1
+h11==0.14.0
 idna==3.3
 itsdangerous==2.2.0
 Jinja2==3.1.4
@@ -30,11 +35,14 @@ pycryptodomex==3.11.0
 pyftdi==0.55.4
 pyserial==3.5
 python-apt==2.6.0
+python-engineio==4.10.0
+python-socketio==5.11.4
 pyusb==1.2.1
 requests==2.28.1
 rpi-ws281x==5.0.0
 RPi.GPIO==0.7.1a4
 scipy==1.14.1
+simple-websocket==1.1.0
 six==1.16.0
 smbus2==0.4.2
 spidev==3.5
@@ -43,4 +51,6 @@ sysv-ipc==1.1.0
 toml==0.10.2
 typing_extensions==4.12.2
 urllib3==1.26.12
+websocket-client==1.8.0
 Werkzeug==3.0.4
+wsproto==1.2.0
