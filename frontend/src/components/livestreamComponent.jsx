@@ -137,8 +137,8 @@ export default function LiveStream(){
         const updateDiffDeltaA = (data) => {
             diffDeltaAChart.current.data.datasets[0].data.push(data['870nm']);
             diffDeltaAChart.current.data.datasets[1].data.push(data['940nm']);
-            diffDeltaAChart.current.data.datasets[0].data.push(data['1200nm']);
-            diffDeltaAChart.current.data.datasets[1].data.push(data['1550nm']);
+            diffDeltaAChart.current.data.datasets[2].data.push(data['1200nm']);
+            diffDeltaAChart.current.data.datasets[3].data.push(data['1550nm']);
             if(diffDeltaAChart.current.data.datasets[0].data.length > diffDeltaAChart.current.data.labels.length){
                 diffDeltaAChart.current.data.datasets[0].data.shift();
             }
