@@ -76,10 +76,12 @@ def conn2Net():
             print(f"[ PING @ {hostName} ] : {conn.stdout}")
             oledisp.upstreamCheck(hostName)
             returnStatement = f"[ PING @ {hostName} ] : {conn.stdout}"
+            os.system("systemctl restart adcDaemon.service")
         else:
             print(f"[ PING @ {hostName} ] : {conn.stderr}")
             oledisp.pingError()
             returnStatement = f"[ PING @ {hostName} ] : {conn.stderr}"
+            os.system("systemctl stop adcDaemon.service")
     else:
         print(f"[ NMCLI : Connection @ {ssid} ] : {newConn.stderr}")
         oledisp.credsError()

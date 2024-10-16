@@ -105,6 +105,7 @@ def updateMechanism(firstTime=False):
             connCheck = checkSystemConnectivity()
             if connCheck[1]:
                 oledisp.upstreamCheck(connCheck[0])
+                os.system("systemctl restart adcDaemon.service")
             else:
                 oledisp.pingError()
                 sleep(5)
@@ -118,6 +119,7 @@ def updateMechanism(firstTime=False):
 # %%
 # Execution
 if __name__=="__main__":
+    os.system("systemctl stop adcDaemon.service")
     updateMechanism(True)
     while True:
         sleep(21600)
