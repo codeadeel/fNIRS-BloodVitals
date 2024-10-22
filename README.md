@@ -10,4 +10,4 @@ The subject repository branch is responsible for edge device programming for fin
 
 ##### For extensive documentation, please check [***wiki***](https://github.com/codeadeel/fNIRS-BloodVitals/wiki).
 
-[captiveportal]: ./MarkDown-Data/fNIRSCaptive.png
+[captiveportal]: ./MarkDown-Data/fNIRSCaptivePortal.png
