@@ -45,7 +45,7 @@ services:
       - ALLOWED_PASSWORD=aeelab # Login : Password
       - ALLOWED_AGE=43200000 # Security : JWT Expiry ( 12 Hours )
       - PORT=8080 # Network : Express Port
-      - DATABASE_USER="" # Redis Login : Redis User
+      # - DATABASE_USER="" # Redis Login : Redis User
       - DATABASE_PASSWORD=fnirs123 # Redis Login : Redis Password 
       - DATABASE_PORT=6379  # Network : Redis Port
       - DATABASE_HOST=fnirsdatabase # Redis Host : Redis Host Address
@@ -69,7 +69,7 @@ services:
       - ALLOWED_PASSWORD=aeelab # Login : Password
       - ALLOWED_AGE=21600000 # Security : JWT Expiry ( 6 Hours )
       - PORT=8080 # Network : Express Port
-      - DATABASE_USER="" # Redis Login : Redis User
+      # - DATABASE_USER="" # Redis Login : Redis User
       - DATABASE_PASSWORD=fnirs123 # Redis Login : Redis Password 
       - DATABASE_PORT=6379  # Network : Redis Port
       - DATABASE_HOST=fnirsdatabase # Redis Host : Redis Host Address
