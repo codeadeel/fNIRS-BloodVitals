@@ -17,18 +17,18 @@ services:
     profiles:
       - development
     
-    fnirsDatabase:
-      image: redis@sha256:de13e74e14b98eb96bdf886791ae47686c3c5d29f9d5f85ea55206843e3fce26
-      container_name: fnirsdatabase
-      hostname: fnirsdatabase
-      restart: always
-      expose:
-        - 6379
-      volumes:
-        - fnirsdatabasevolume:/data
-      command: ["redis-server", "--requirepass", "fnirs123", "--appendonly", "yes"]
-      profiles:
-        - deployment
+  fnirsDatabase:
+    image: redis@sha256:de13e74e14b98eb96bdf886791ae47686c3c5d29f9d5f85ea55206843e3fce26
+    container_name: fnirsdatabase
+    hostname: fnirsdatabase
+    restart: always
+    expose:
+      - 6379
+    volumes:
+      - fnirsdatabasevolume:/data
+    command: ["redis-server", "--requirepass", "fnirs123", "--appendonly", "yes"]
+    profiles:
+      - deployment
 
   fnirsWebAppDevelopment:
     build:
