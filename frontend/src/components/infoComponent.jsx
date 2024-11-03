@@ -6,13 +6,14 @@ import FnirsContext from "../tools/contextStore";
 
 export default function InfoComponent(){
     // Import states from the context store
-    const {setLiveStreamPageActive, setInfoPageActive, deviceID, fnirsCookie, creditStatement} = useContext(FnirsContext);
+    const {setLiveStreamPageActive, setAcquisitionPageActive, setInfoPageActive, deviceID, fnirsCookie, creditStatement} = useContext(FnirsContext);
     let currDate = new Date();
     currDate = currDate.toLocaleString();
 
     // Highlight the current page
     useEffect(() => {
         setLiveStreamPageActive('text-current font-sans');
+        setAcquisitionPageActive('text-current font-sans');
         setInfoPageActive('text-blue-600 font-sans');
     }, []);
 

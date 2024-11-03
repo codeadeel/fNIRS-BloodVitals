@@ -2,6 +2,32 @@
 
 services:
 
+  fnirsDatabaseDevelopment:
+    image: redis@sha256:de13e74e14b98eb96bdf886791ae47686c3c5d29f9d5f85ea55206843e3fce26
+    container_name: fnirsDatabase
+    hostname: fnirsdatabase
+    restart: always
+    expose: 6379
+    networks:
+      - fnirsNetwork
+    volumes:
+      - fnirsdatabasevolume:/data
+    command: ["redis-server", "--requirepass", "fnirs123", "--appendonly", "yes"]
+    profiles:
+      - development
+    
+    fnirsDatabase:
+    image: redis@sha256:de13e74e14b98eb96bdf886791ae47686c3c5d29f9d5f85ea55206843e3fce26
+    container_name: fnirsDatabase
+    hostname: fnirsdatabase
+    restart: always
+    expose: 6379
+    volumes:
+      - fnirsdatabasevolume:/data
+    command: ["redis-server", "--requirepass", "fnirs123", "--appendonly", "yes"]
+    profiles:
+      - deployment
+
   fnirsWebAppDevelopment:
     build:
       context: .
@@ -17,8 +43,15 @@ services:
       - ALLOWED_PASSWORD=aeelab # Login : Password
       - ALLOWED_AGE=43200000 # Security : JWT Expiry ( 12 Hours )
       - PORT=8080 # Network : Express Port
+      - DATABASE_USER="" # Redis Login : Redis User
+      - DATABASE_PASSWORD=fnirs123 # Redis Login : Redis Password 
+      - DATABASE_PORT=6379  # Network : Redis Port
+      - DATABASE_HOST=fnirsdatabase # Redis Host : Redis Host Address
+      - DATABASE_SELECT=0 # Redis Select : Redis Database Select
     networks:
       - fnirsNetwork
+    depends_on:
+      - fnirsDatabaseDevelopment
     profiles:
       - development
   
@@ -34,6 +67,13 @@ services:
       - ALLOWED_PASSWORD=aeelab # Login : Password
       - ALLOWED_AGE=21600000 # Security : JWT Expiry ( 6 Hours )
       - PORT=8080 # Network : Express Port
+      - DATABASE_USER="" # Redis Login : Redis User
+      - DATABASE_PASSWORD=fnirs123 # Redis Login : Redis Password 
+      - DATABASE_PORT=6379  # Network : Redis Port
+      - DATABASE_HOST=fnirsdatabase # Redis Host : Redis Host Address
+      - DATABASE_SELECT=0 # Redis Select : Redis Database Select
+    depends_on:
+      - fnirsDatabase
     profiles:
       - deployment
 
@@ -44,3 +84,6 @@ networks:
       driver: default
       config:
         - subnet: 10.20.0.0/16
+
+volumes:
+  fnirsdatabasevolume:

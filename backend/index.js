@@ -18,6 +18,9 @@ if(expressPort==undefined){
     
 }
 
+// Initialize the database route
+const {databaseHandler} = require('./routes/databaseRoute');
+
 // Initialize the backend app
 const app = express();
 const server = createServer(app);
@@ -67,12 +70,14 @@ io.on('connection', (socket) => {
 
 // Initialize express middlewares
 app.use(cookieParser());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '100mb' }));
 app.use(cors());
 
 // Define authentication route for login
 app.use('/api/auth', loginHandler);
 
+// Define databse route for data handling
+app.use('/api/database', databaseHandler);
 
 // Server the frontend app
 app.use("/", express.static(`${__dirname}/dist`));

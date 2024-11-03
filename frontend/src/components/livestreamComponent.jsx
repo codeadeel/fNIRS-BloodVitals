@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/card";
-import { io } from 'socket.io-client';
 import FnirsContext from "../tools/contextStore";
 import ChartsComponent from "./chartsComponent";
 
@@ -8,7 +7,7 @@ import ChartsComponent from "./chartsComponent";
 
 export default function LiveStream(){
     // Import states from the context store
-    const {setDeviceID, setLiveStreamPageActive, setInfoPageActive, deltaAChart, diffDeltaAChart, deltaCChart, highpassChart, tsiChart} = useContext(FnirsContext);
+    const {fnirsSocket, setDeviceID, setLiveStreamPageActive, setAcquisitionPageActive, setInfoPageActive, deltaAChart, diffDeltaAChart, deltaCChart, highpassChart, tsiChart} = useContext(FnirsContext);
 
     // Initializes labels & values to the cards
     const [deltaAAvg0Label, setDeltaAAvg0Label] = useState('Avg Label');
@@ -61,10 +60,8 @@ export default function LiveStream(){
 
     // Initialize sockets, update data of charts & cards upon event occurence
     useEffect(() => {
-        const fnirsSocket = io(window.location.origin, {transports: ['websocket']});
-        fnirsSocket.connect();
-
         setLiveStreamPageActive('text-blue-600 font-sans');
+        setAcquisitionPageActive('text-current font-sans');
         setInfoPageActive('text-current font-sans');
         
         setDeltaAAvg0Label(deltaAChart.current.data.datasets[0].label.split(" ")[0]);
@@ -102,34 +99,44 @@ export default function LiveStream(){
 
         // Update Raw Sensor Data
         const updateDeltaA = (data) => {
-            deltaAChart.current.data.datasets[0].data.push(data['870nm']);
-            deltaAChart.current.data.datasets[1].data.push(data['940nm']);
-            deltaAChart.current.data.datasets[2].data.push(data['1200nm']);
-            deltaAChart.current.data.datasets[3].data.push(data['1550nm']);
-            if(deltaAChart.current.data.datasets[0].data.length > deltaAChart.current.data.labels.length){
-                deltaAChart.current.data.datasets[0].data.shift();
-            }
-            if(deltaAChart.current.data.datasets[1].data.length > deltaAChart.current.data.labels.length){
-                deltaAChart.current.data.datasets[1].data.shift();
-            }
-            if(deltaAChart.current.data.datasets[2].data.length > deltaAChart.current.data.labels.length){
-                deltaAChart.current.data.datasets[2].data.shift();
-            }
-            if(deltaAChart.current.data.datasets[3].data.length > deltaAChart.current.data.labels.length){
-                deltaAChart.current.data.datasets[3].data.shift();
+            deltaAChart.current.data.datasets[0].data.push(data['870nmch1']);
+            deltaAChart.current.data.datasets[1].data.push(data['870nmch2']);
+            deltaAChart.current.data.datasets[2].data.push(data['870nmch3']);
+            deltaAChart.current.data.datasets[3].data.push(data['870nmch4']);
+            deltaAChart.current.data.datasets[4].data.push(data['940nmch1']);
+            deltaAChart.current.data.datasets[5].data.push(data['940nmch2']);
+            deltaAChart.current.data.datasets[6].data.push(data['940nmch3']);
+            deltaAChart.current.data.datasets[7].data.push(data['940nmch4']);
+            deltaAChart.current.data.datasets[8].data.push(data['1200nmch1']);
+            deltaAChart.current.data.datasets[9].data.push(data['1200nmch2']);
+            deltaAChart.current.data.datasets[10].data.push(data['1200nmch3']);
+            deltaAChart.current.data.datasets[11].data.push(data['1200nmch4']);
+            deltaAChart.current.data.datasets[12].data.push(data['1550nmch1']);
+            deltaAChart.current.data.datasets[13].data.push(data['1550nmch2']);
+            deltaAChart.current.data.datasets[14].data.push(data['1550nmch3']);
+            deltaAChart.current.data.datasets[15].data.push(data['1550nmch4']);
+
+            for(let dCount=0; dCount < deltaAChart.current.data.datasets.length; dCount++){
+                if(deltaAChart.current.data.datasets[dCount].data.length > deltaAChart.current.data.labels.length){
+                    deltaAChart.current.data.datasets[dCount].data.shift();
+                }
             }
             deltaAChart.current.update('none');
             setDeltaAAvg0(()=>{
-                return avgFinder(deltaAChart.current.data.datasets[0].data);
+                let avgAdder = (parseFloat(avgFinder(deltaAChart.current.data.datasets[0].data)) + parseFloat(avgFinder(deltaAChart.current.data.datasets[1].data)) + parseFloat(avgFinder(deltaAChart.current.data.datasets[2].data)) + parseFloat(avgFinder(deltaAChart.current.data.datasets[3].data))) / 4;
+                return avgAdder.toFixed(3);
             });
             setDeltaAAvg1(()=>{
-                return avgFinder(deltaAChart.current.data.datasets[1].data);
+                let avgAdder = (parseFloat(avgFinder(deltaAChart.current.data.datasets[4].data)) + parseFloat(avgFinder(deltaAChart.current.data.datasets[5].data)) + parseFloat(avgFinder(deltaAChart.current.data.datasets[6].data)) + parseFloat(avgFinder(deltaAChart.current.data.datasets[7].data))) / 4;
+                return avgAdder.toFixed(3);
             });
             setDeltaACurrent0(()=>{
-                return deltaAChart.current.data.datasets[0].data[deltaAChart.current.data.datasets[0].data.length-1].toFixed(3);
+                let avgAdder = (deltaAChart.current.data.datasets[0].data[deltaAChart.current.data.datasets[0].data.length-1] + deltaAChart.current.data.datasets[1].data[deltaAChart.current.data.datasets[1].data.length-1] + deltaAChart.current.data.datasets[2].data[deltaAChart.current.data.datasets[2].data.length-1] + deltaAChart.current.data.datasets[3].data[deltaAChart.current.data.datasets[3].data.length-1]) / 4;
+                return avgAdder.toFixed(3);
             });
             setDeltaACurrent1(()=>{
-                return deltaAChart.current.data.datasets[1].data[deltaAChart.current.data.datasets[1].data.length-1].toFixed(3);
+                let avgAdder = (deltaAChart.current.data.datasets[4].data[deltaAChart.current.data.datasets[4].data.length-1] + deltaAChart.current.data.datasets[5].data[deltaAChart.current.data.datasets[5].data.length-1] + deltaAChart.current.data.datasets[6].data[deltaAChart.current.data.datasets[6].data.length-1] + deltaAChart.current.data.datasets[7].data[deltaAChart.current.data.datasets[7].data.length-1]) / 4;
+                return avgAdder.toFixed(3);
             });
         };
 
@@ -139,17 +146,11 @@ export default function LiveStream(){
             diffDeltaAChart.current.data.datasets[1].data.push(data['940nm']);
             diffDeltaAChart.current.data.datasets[2].data.push(data['1200nm']);
             diffDeltaAChart.current.data.datasets[3].data.push(data['1550nm']);
-            if(diffDeltaAChart.current.data.datasets[0].data.length > diffDeltaAChart.current.data.labels.length){
-                diffDeltaAChart.current.data.datasets[0].data.shift();
-            }
-            if(diffDeltaAChart.current.data.datasets[1].data.length > diffDeltaAChart.current.data.labels.length){
-                diffDeltaAChart.current.data.datasets[1].data.shift();
-            }
-            if(diffDeltaAChart.current.data.datasets[2].data.length > diffDeltaAChart.current.data.labels.length){
-                diffDeltaAChart.current.data.datasets[2].data.shift();
-            }
-            if(diffDeltaAChart.current.data.datasets[3].data.length > diffDeltaAChart.current.data.labels.length){
-                diffDeltaAChart.current.data.datasets[3].data.shift();
+
+            for(let dCount=0; dCount < diffDeltaAChart.current.data.datasets.length; dCount++){
+                if(diffDeltaAChart.current.data.datasets[dCount].data.length > diffDeltaAChart.current.data.labels.length){
+                    diffDeltaAChart.current.data.datasets[dCount].data.shift();
+                }
             }
             diffDeltaAChart.current.update('none');
             setDiffDeltaAAvg0(()=>{
@@ -170,11 +171,11 @@ export default function LiveStream(){
         const updateDeltaC = (data) => {
             deltaCChart.current.data.datasets[0].data.push(data['870nm']);
             deltaCChart.current.data.datasets[1].data.push(data['940nm']);
-            if(deltaCChart.current.data.datasets[0].data.length > deltaCChart.current.data.labels.length){
-                deltaCChart.current.data.datasets[0].data.shift();
-            }
-            if(deltaCChart.current.data.datasets[1].data.length > deltaCChart.current.data.labels.length){
-                deltaCChart.current.data.datasets[1].data.shift();
+
+            for(let dCount=0; dCount < deltaCChart.current.data.datasets.length; dCount++){
+                if(deltaCChart.current.data.datasets[dCount].data.length > deltaCChart.current.data.labels.length){
+                    deltaCChart.current.data.datasets[dCount].data.shift();
+                }
             }
             deltaCChart.current.update('none');
             setDeltaCAvg0(()=>{
@@ -195,11 +196,11 @@ export default function LiveStream(){
         const updateHighpass = (data) => {
             highpassChart.current.data.datasets[0].data.push(data['870nm']);
             highpassChart.current.data.datasets[1].data.push(data['940nm']);
-            if(highpassChart.current.data.datasets[0].data.length > highpassChart.current.data.labels.length){
-                highpassChart.current.data.datasets[0].data.shift();
-            }
-            if(highpassChart.current.data.datasets[1].data.length > highpassChart.current.data.labels.length){
-                highpassChart.current.data.datasets[1].data.shift();
+
+            for(let dCount=0; dCount < highpassChart.current.data.datasets.length; dCount++){
+                if(highpassChart.current.data.datasets[dCount].data.length > highpassChart.current.data.labels.length){
+                    highpassChart.current.data.datasets[dCount].data.shift();
+                }
             }
             highpassChart.current.update('none');
             setHighpassAvg0(()=>{
@@ -220,11 +221,11 @@ export default function LiveStream(){
         const updateTsi = (data) => {
             tsiChart.current.data.datasets[0].data.push(data['870nm']);
             tsiChart.current.data.datasets[1].data.push(data['940nm']);
-            if(tsiChart.current.data.datasets[0].data.length > tsiChart.current.data.labels.length){
-                tsiChart.current.data.datasets[0].data.shift();
-            }
-            if(tsiChart.current.data.datasets[1].data.length > tsiChart.current.data.labels.length){
-                tsiChart.current.data.datasets[1].data.shift();
+
+            for(let dCount=0; dCount < tsiChart.current.data.datasets.length; dCount++){
+                if(tsiChart.current.data.datasets[dCount].data.length > tsiChart.current.data.labels.length){
+                    tsiChart.current.data.datasets[dCount].data.shift();
+                }
             }
             tsiChart.current.update('none');
             setTsiAvg0(()=>{
@@ -247,23 +248,22 @@ export default function LiveStream(){
         };
 
         // Attach update function to socket event triggers
-        fnirsSocket.on('upMSGA', updateDeltaA);
-        fnirsSocket.on('upMSGdeltaA', updateDiffDeltaA);
-        fnirsSocket.on('upMSGC', updateDeltaC);
-        fnirsSocket.on('upMSGCHP', updateHighpass);
-        fnirsSocket.on('upMSGTSI', updateTsi);
-        fnirsSocket.on('devID', idSetter);
+        fnirsSocket.current.on('upMSGA', updateDeltaA);
+        fnirsSocket.current.on('upMSGdeltaA', updateDiffDeltaA);
+        fnirsSocket.current.on('upMSGC', updateDeltaC);
+        fnirsSocket.current.on('upMSGCHP', updateHighpass);
+        fnirsSocket.current.on('upMSGTSI', updateTsi);
+        fnirsSocket.current.on('devID', idSetter);
 
         // Detach the socket of component unmount
         return ()=> {
-            if(fnirsSocket.connected){
-                fnirsSocket.off('upMSGA', updateDeltaA);
-                fnirsSocket.off('upMSGdeltaA', updateDiffDeltaA);
-                fnirsSocket.off('upMSGC', updateDeltaC);
-                fnirsSocket.off('upMSGCHP', updateHighpass);
-                fnirsSocket.off('upMSGTSI', updateTsi);
-                fnirsSocket.off('devID', idSetter);
-                fnirsSocket.disconnect();
+            if(fnirsSocket.current.connected){
+                fnirsSocket.current.off('upMSGA', updateDeltaA);
+                fnirsSocket.current.off('upMSGdeltaA', updateDiffDeltaA);
+                fnirsSocket.current.off('upMSGC', updateDeltaC);
+                fnirsSocket.current.off('upMSGCHP', updateHighpass);
+                fnirsSocket.current.off('upMSGTSI', updateTsi);
+                fnirsSocket.current.off('devID', idSetter);
             }
         };
     }, []);

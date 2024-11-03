@@ -10,7 +10,7 @@ import FnirsContext from "../tools/contextStore";
 
 export default function Dashboard(){
     // Import states from the context store
-    const {removefnirsCookie, sideMenu, setSideMenu, liveStreamPageActive, infoPageActive, currentImage} = useContext(FnirsContext);
+    const {removefnirsCookie, sideMenu, setSideMenu, liveStreamPageActive, infoPageActive, acquisitionPageActive, currentImage} = useContext(FnirsContext);
     const navigate = useNavigate();
     // Remove secure cookie in case user is logged out
     const authCookieRemover = ()=>{
@@ -34,6 +34,9 @@ export default function Dashboard(){
                         <Link className={liveStreamPageActive} to="/dashboard/livestream">Live Stream</Link>
                     </NavbarItem>
                     <NavbarItem>
+                        <Link className={acquisitionPageActive} to="/dashboard/acquisition">Data Acquisition</Link>
+                    </NavbarItem>
+                    <NavbarItem>
                         <Link className={infoPageActive} to="/dashboard/info">Session Information</Link>
                     </NavbarItem>
                 </NavbarContent>
@@ -48,6 +51,9 @@ export default function Dashboard(){
                     <NavbarMenuItem>
                         <Link className={liveStreamPageActive} to="/dashboard/livestream">Live Stream</Link>
                     </NavbarMenuItem>
+                    <NavbarItem>
+                        <Link className={acquisitionPageActive} to="/dashboard/acquisition">Data Acquisition</Link>
+                    </NavbarItem>
                     <NavbarMenuItem>
                         <Link className={infoPageActive} to="/dashboard/info">Session Information</Link>
                     </NavbarMenuItem>

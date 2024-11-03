@@ -4,11 +4,13 @@ import FnirsContext from './tools/contextStore.js'
 import LoginPage from './components/loginComponent.jsx';
 import Dashboard from './components/dashboardComponent.jsx';
 import LiveStream from './components/livestreamComponent.jsx';
+import AcquisitionComponent from './components/acquisitionComponent.jsx';
 import InfoComponent from './components/infoComponent.jsx';
 import PsauImage from './assets/psauLogo.png';
 
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import {useCookies} from 'react-cookie';
+import { io } from 'socket.io-client';
 
 // This is the main file to start the App
 
@@ -21,10 +23,22 @@ export default function App(){
   const [sideMenu, setSideMenu] = useState(false);
   const [liveStreamPageActive, setLiveStreamPageActive] = useState('text-current font-sans');
   const [infoPageActive, setInfoPageActive] = useState('text-current font-sans');
+  const [acquisitionPageActive, setAcquisitionPageActive] = useState('text-current font-sans');
   const [currentImage, setCurrentImage] = useState(PsauImage);
   const [creditStatement, setCreditStatement] = useState('Made with ❤️ in Saudi Arabia');
+  const recordingData = useRef({
+    sensorValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "940nmch1": [], "940nmch2": [], "940nmch3": [], "940nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
+    deltaValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []},
+    concentrationValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []},
+    highpassFilterValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []},
+    tsiValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []}
+  });
   // Cookies checker for the React App
   const [fnirsCookie, setfnirsCookie, removefnirsCookie] = useCookies('', {doNotParse: true, doNotUpdate: true});
+  
+  // Initialize Socket Connection
+  const fnirsSocket = useRef(io(window.location.origin, {transports: ['websocket']}));
+  fnirsSocket.current.connect();
   
   // Initialization of charts data references
   const deltaAChart = useRef(null);
@@ -46,6 +60,12 @@ export default function App(){
     }).catch(()=>{
       null;
     });
+
+    return ()=> {
+      if(fnirsSocket.connected){
+          fnirsSocket.disconnect();
+      }
+    };
   }, []);
 
   // Component definition
@@ -58,14 +78,16 @@ export default function App(){
       sideMenu, setSideMenu,
       liveStreamPageActive, setLiveStreamPageActive,
       infoPageActive, setInfoPageActive,
+      acquisitionPageActive, setAcquisitionPageActive,
       fnirsCookie, removefnirsCookie,
-      deltaAChart, diffDeltaAChart, deltaCChart, highpassChart, tsiChart, currentImage, creditStatement
+      deltaAChart, diffDeltaAChart, deltaCChart, highpassChart, tsiChart, currentImage, creditStatement, fnirsSocket, recordingData
     }}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={fnirsCookie['fNIRS-Cookie']==undefined ? <LoginPage /> : <Navigate to='/dashboard/livestream' />} />
           <Route path='/dashboard' element={fnirsCookie['fNIRS-Cookie']!=undefined ? <Dashboard /> : <Navigate to='/' />}>
             <Route path='/dashboard/livestream' element={fnirsCookie['fNIRS-Cookie']!=undefined ? <LiveStream /> : <Navigate to='/' />} />
+            <Route path='/dashboard/acquisition' element={fnirsCookie['fNIRS-Cookie']!=undefined ? <AcquisitionComponent /> : <Navigate to='/' />} />
             <Route path='/dashboard/info' element={fnirsCookie['fNIRS-Cookie']!=undefined ? <InfoComponent /> : <Navigate to='/' />} />
           </Route>
         </Routes>

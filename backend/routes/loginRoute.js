@@ -26,7 +26,6 @@ if(allowedUser==undefined){
     allowedUser = 'admin';
 } else {
     console.log(`[ ENV: ALLOWED_USER ] : ${allowedUser}`)
-    
 }
 
 if(allowedPassword==undefined){
@@ -43,7 +42,6 @@ if(allowedAge==undefined){
 } else {
     console.log(`[ ENV: ALLOWED_AGE (ms) ] : ${allowedAge}`)
 }
-
 
 allowedUser = shajs('sha256').update(allowedUser).digest('hex');
 allowedPassword = shajs('sha256').update(allowedPassword).digest('hex');
