@@ -11,7 +11,7 @@ import socketio
 if __name__=="__main__":
     # Initializing Socker Connection
     sio = socketio.SimpleClient()
-    sio.connect('http://192.168.100.190')
+    sio.connect('https://fnirs.codeadeel.com')
     deviceID = random.random()
 
     # Sending Dummy Data
