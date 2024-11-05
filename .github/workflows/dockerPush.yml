@@ -20,10 +20,16 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     
     - name: Build Web Portal
-      run: docker build -t ${{ secrets.DOCKER_USER }}/private:fnirswebapp .
+      run: docker build -t ${{ secrets.DOCKER_USER }}/private:fnirswebapp --target backendbuild .
 
     - name: Push Build Container
       run: docker push ${{ secrets.DOCKER_USER }}/private:fnirswebapp
+
+    - name: Build Algorithm
+      run: docker build -t ${{ secrets.DOCKER_USER }}/private:fnirsalgorithm --target algorithmbuild .
+
+    - name: Push Build Container
+      run: docker push ${{ secrets.DOCKER_USER }}/private:fnirsalgorithm
     
   Google-VM-Deployment:
     needs: Docker-x64-Build

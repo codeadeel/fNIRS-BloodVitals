@@ -26,7 +26,13 @@ jobs:
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
       
       - name: Build Web Portal
-        run: docker build -t ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }} .
+        run: docker build -t ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME_WEBAPP }}:${{ github.sha }} --target backendbuild .
 
       - name: Push Build Container
-        run: docker push ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }}
+        run: docker push ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME_WEBAPP }}:${{ github.sha }}
+
+      - name: Build Algorithm
+        run: docker build -t ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME_ALGORITHM }}:${{ github.sha }} --target algorithmbuild .
+
+      - name: Push Build Container
+        run: docker push ${{ vars.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ vars.ARTIFACT_REGISTRY }}/${{ vars.SERVICE_NAME_ALGORITHM }}:${{ github.sha }}

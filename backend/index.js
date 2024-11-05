@@ -15,7 +15,6 @@ if(expressPort==undefined){
     expressPort = 80;
 } else {
     console.log(`[ ENV: PORT ] : ${expressPort}`)
-    
 }
 
 // Initialize the database route
@@ -35,6 +34,10 @@ process.on('SIGINT', () => {
 // Initizalion of socker & relevant events
 io.on('connection', (socket) => {
     console.log('[ SocketIO : CONNECTION ] : Client Connected');
+
+    socket.on('serverRAW', (msg)=>{
+        socket.broadcast.emit('algoRAW', msg);
+    });
 
     // msg: {"870nm": someValue, "940nm": someValue, "1200nm": someValue, "1550nm": someValue}
     // Raw Sensor Value

@@ -2,6 +2,7 @@
 
 services:
 
+  # fNIRS Development Database
   fnirsDatabaseDevelopment:
     image: redis@sha256:de13e74e14b98eb96bdf886791ae47686c3c5d29f9d5f85ea55206843e3fce26
     container_name: fnirsdatabase
@@ -16,35 +17,24 @@ services:
     command: ["redis-server", "--requirepass", "fnirs123", "--appendonly", "yes"]
     profiles:
       - development
-    
-  fnirsDatabase:
-    image: redis@sha256:de13e74e14b98eb96bdf886791ae47686c3c5d29f9d5f85ea55206843e3fce26
-    container_name: fnirsdatabase
-    hostname: fnirsdatabase
-    restart: always
-    expose:
-      - 6379
-    volumes:
-      - fnirsdatabasevolume:/data
-    command: ["redis-server", "--requirepass", "fnirs123", "--appendonly", "yes"]
-    profiles:
-      - deployment
-
+  
+  # fNIRS Development Webapp
   fnirsWebAppDevelopment:
     build:
       context: .
+      target: backendbuild
       dockerfile: Dockerfile
     image: codeadeel/private:fnirswebapp
     container_name: fnirswebapp
     hostname: fnirswebapp
     restart: always
     expose:
-      - 8080
+      - 80
     environment:
       - ALLOWED_USER=aeelab # Login : Username
       - ALLOWED_PASSWORD=aeelab # Login : Password
       - ALLOWED_AGE=43200000 # Security : JWT Expiry ( 12 Hours )
-      - PORT=8080 # Network : Express Port
+      - PORT=80 # Network : Express Port
       # - DATABASE_USER="" # Redis Login : Redis User
       - DATABASE_PASSWORD=fnirs123 # Redis Login : Redis Password 
       - DATABASE_PORT=6379  # Network : Redis Port
@@ -57,18 +47,56 @@ services:
     profiles:
       - development
   
+  # fNITRS Development Algorithm
+  fnirsAlgorithmDevelopment:
+    build:
+      context: .
+      target: algorithmbuild
+      dockerfile: Dockerfile
+    image: codeadeel/private:fnirsalgorithm
+    container_name: fnirsalgorithm
+    hostname: fnirsalgorithm
+    restart: always
+    environment:
+      - PORTAL_ADDRESS: fnirswebapp
+      - CUTOFF_FREQUENCY: 0.1
+      - SAMPLING_RATE: 1600
+      - FILTER_ORDER: 1
+      - FILTER_WINDOW: 100
+    networks:
+      - fnirsNetwork
+    depends_on:
+      - fnirsWebAppDevelopment
+    profiles:
+      - development
+
+  # fNIRS Deployment Database  
+  fnirsDatabase:
+    image: redis@sha256:de13e74e14b98eb96bdf886791ae47686c3c5d29f9d5f85ea55206843e3fce26
+    container_name: fnirsdatabase
+    hostname: fnirsdatabase
+    restart: always
+    expose:
+      - 6379
+    volumes:
+      - fnirsdatabasevolume:/data
+    command: ["redis-server", "--requirepass", "fnirs123", "--appendonly", "yes"]
+    profiles:
+      - deployment
+  
+  # fNIRS Deployment Webapp
   fnirsWebApp:
     image: codeadeel/private:fnirswebapp
     container_name: fnirswebapp
     hostname: fnirswebapp
     restart: always
     ports:
-      - 1201:8080
+      - 1201:80
     environment:
       - ALLOWED_USER=aeelab # Login : Username
       - ALLOWED_PASSWORD=aeelab # Login : Password
       - ALLOWED_AGE=21600000 # Security : JWT Expiry ( 6 Hours )
-      - PORT=8080 # Network : Express Port
+      - PORT=80 # Network : Express Port
       # - DATABASE_USER="" # Redis Login : Redis User
       - DATABASE_PASSWORD=fnirs123 # Redis Login : Redis Password 
       - DATABASE_PORT=6379  # Network : Redis Port
@@ -76,6 +104,24 @@ services:
       - DATABASE_SELECT=0 # Redis Select : Redis Database Select
     depends_on:
       - fnirsDatabase
+    profiles:
+      - deployment
+  
+  # fNIRS Deployment Algorithm
+  fnirsAlgorithm:
+    image: codeadeel/private:fnirsalgorithm
+    image: codeadeel/private:fnirsalgorithm
+    container_name: fnirsalgorithm
+    hostname: fnirsalgorithm
+    restart: always
+    environment:
+      - PORTAL_ADDRESS: fnirswebapp
+      - CUTOFF_FREQUENCY: 0.1
+      - SAMPLING_RATE: 1600
+      - FILTER_ORDER: 1
+      - FILTER_WINDOW: 100
+    depends_on:
+      - fnirsWebApp
     profiles:
       - deployment
 
