@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DEPLOYMENT_DIRECTORY=./services/fnirswebapp
+DEPLOYMENT_DIRECTORY=./services/fNIRS
 
 # Creating directory for deployment
 mkdir -p $DEPLOYMENT_DIRECTORY
@@ -9,6 +9,7 @@ mkdir -p $DEPLOYMENT_DIRECTORY
 if [ -e "$DEPLOYMENT_DIRECTORY/docker-compose.yml" ]; then
     docker compose -f $DEPLOYMENT_DIRECTORY/docker-compose.yml --profile deployment down
     docker rmi codeadeel/private:fnirswebapp
+    docker rmi codeadeel/private:fnirsalgorithm
 else 
     echo "docker-compose.yml not Found"
 fi 
