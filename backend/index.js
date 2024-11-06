@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('algoRAW', msg);
     });
 
-    // msg: {"870nm": someValue, "940nm": someValue, "1200nm": someValue, "1550nm": someValue}
+    // msg: {"870nm": someValue, "660nm": someValue, "1200nm": someValue, "1550nm": someValue}
     // Raw Sensor Value
     socket.on('serverMSGA', (msg)=>{
         socket.broadcast.emit('upMSGA', msg);

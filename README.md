@@ -8,7 +8,7 @@
 The subject repository is responsible for finding human blood vitals using fNIRS. These vitals may include following:
 
 * Blood oxygen levels ***( Hb @ 870nm Wavelength )***
-* Water levels in blood ***( H2O @ 940nm Wavelength )***
+* Water levels in blood ***( H2O @ 660nm Wavelength )***
 
 The subject portal can be hosted & edge devices from the sensor can transmit the data directly to the portal.
 

@@ -103,10 +103,10 @@ export default function LiveStream(){
             deltaAChart.current.data.datasets[1].data.push(data['870nmch2']);
             deltaAChart.current.data.datasets[2].data.push(data['870nmch3']);
             deltaAChart.current.data.datasets[3].data.push(data['870nmch4']);
-            deltaAChart.current.data.datasets[4].data.push(data['940nmch1']);
-            deltaAChart.current.data.datasets[5].data.push(data['940nmch2']);
-            deltaAChart.current.data.datasets[6].data.push(data['940nmch3']);
-            deltaAChart.current.data.datasets[7].data.push(data['940nmch4']);
+            deltaAChart.current.data.datasets[4].data.push(data['660nmch1']);
+            deltaAChart.current.data.datasets[5].data.push(data['660nmch2']);
+            deltaAChart.current.data.datasets[6].data.push(data['660nmch3']);
+            deltaAChart.current.data.datasets[7].data.push(data['660nmch4']);
             deltaAChart.current.data.datasets[8].data.push(data['1200nmch1']);
             deltaAChart.current.data.datasets[9].data.push(data['1200nmch2']);
             deltaAChart.current.data.datasets[10].data.push(data['1200nmch3']);
@@ -143,7 +143,7 @@ export default function LiveStream(){
         // Update Diff Delta A Data
         const updateDiffDeltaA = (data) => {
             diffDeltaAChart.current.data.datasets[0].data.push(data['870nm']);
-            diffDeltaAChart.current.data.datasets[1].data.push(data['940nm']);
+            diffDeltaAChart.current.data.datasets[1].data.push(data['660nm']);
             diffDeltaAChart.current.data.datasets[2].data.push(data['1200nm']);
             diffDeltaAChart.current.data.datasets[3].data.push(data['1550nm']);
 
@@ -170,7 +170,7 @@ export default function LiveStream(){
         // Update Concentration Data
         const updateDeltaC = (data) => {
             deltaCChart.current.data.datasets[0].data.push(data['870nm']);
-            deltaCChart.current.data.datasets[1].data.push(data['940nm']);
+            deltaCChart.current.data.datasets[1].data.push(data['660nm']);
 
             for(let dCount=0; dCount < deltaCChart.current.data.datasets.length; dCount++){
                 if(deltaCChart.current.data.datasets[dCount].data.length > deltaCChart.current.data.labels.length){
@@ -195,7 +195,7 @@ export default function LiveStream(){
         // Update Concentration @ Highpass Data
         const updateHighpass = (data) => {
             highpassChart.current.data.datasets[0].data.push(data['870nm']);
-            highpassChart.current.data.datasets[1].data.push(data['940nm']);
+            highpassChart.current.data.datasets[1].data.push(data['660nm']);
 
             for(let dCount=0; dCount < highpassChart.current.data.datasets.length; dCount++){
                 if(highpassChart.current.data.datasets[dCount].data.length > highpassChart.current.data.labels.length){
@@ -220,7 +220,7 @@ export default function LiveStream(){
         // Update Tissue Saturation Index Data
         const updateTsi = (data) => {
             tsiChart.current.data.datasets[0].data.push(data['870nm']);
-            tsiChart.current.data.datasets[1].data.push(data['940nm']);
+            tsiChart.current.data.datasets[1].data.push(data['660nm']);
 
             for(let dCount=0; dCount < tsiChart.current.data.datasets.length; dCount++){
                 if(tsiChart.current.data.datasets[dCount].data.length > tsiChart.current.data.labels.length){

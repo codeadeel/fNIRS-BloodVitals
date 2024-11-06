@@ -54,11 +54,11 @@ export default function AcquisitionComponent(){
 
     const dataReset = () => {
         recordingData.current = {
-            sensorValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "940nmch1": [], "940nmch2": [], "940nmch3": [], "940nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
-            deltaValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []},
-            concentrationValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []},
-            highpassFilterValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []},
-            tsiValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []}
+            sensorValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "660nmch1": [], "660nmch2": [], "660nmch3": [], "660nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
+            deltaValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
+            concentrationValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
+            highpassFilterValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
+            tsiValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []}
         };
         setPatientName("");
         setPatientDOB("");
@@ -142,11 +142,11 @@ export default function AcquisitionComponent(){
 
     useEffect(() => {
         recordingData.current = {
-            sensorValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "940nmch1": [], "940nmch2": [], "940nmch3": [], "940nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
-            deltaValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []},
-            concentrationValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []},
-            highpassFilterValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []},
-            tsiValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []}
+            sensorValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "660nmch1": [], "660nmch2": [], "660nmch3": [], "660nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
+            deltaValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
+            concentrationValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
+            highpassFilterValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
+            tsiValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []}
         };
 
         setLiveStreamPageActive('text-current font-sans');
@@ -159,10 +159,10 @@ export default function AcquisitionComponent(){
             deltaAChart.current.data.datasets[1].data.push(data['870nmch2']);
             deltaAChart.current.data.datasets[2].data.push(data['870nmch3']);
             deltaAChart.current.data.datasets[3].data.push(data['870nmch4']);
-            deltaAChart.current.data.datasets[4].data.push(data['940nmch1']);
-            deltaAChart.current.data.datasets[5].data.push(data['940nmch2']);
-            deltaAChart.current.data.datasets[6].data.push(data['940nmch3']);
-            deltaAChart.current.data.datasets[7].data.push(data['940nmch4']);
+            deltaAChart.current.data.datasets[4].data.push(data['660nmch1']);
+            deltaAChart.current.data.datasets[5].data.push(data['660nmch2']);
+            deltaAChart.current.data.datasets[6].data.push(data['660nmch3']);
+            deltaAChart.current.data.datasets[7].data.push(data['660nmch4']);
             deltaAChart.current.data.datasets[8].data.push(data['1200nmch1']);
             deltaAChart.current.data.datasets[9].data.push(data['1200nmch2']);
             deltaAChart.current.data.datasets[10].data.push(data['1200nmch3']);
@@ -177,10 +177,10 @@ export default function AcquisitionComponent(){
                 recordingData.current['sensorValues']['870nmch2'].push(data['870nmch2']);
                 recordingData.current['sensorValues']['870nmch3'].push(data['870nmch3']);
                 recordingData.current['sensorValues']['870nmch4'].push(data['870nmch4']);
-                recordingData.current['sensorValues']['940nmch1'].push(data['940nmch1']);
-                recordingData.current['sensorValues']['940nmch2'].push(data['940nmch2']);
-                recordingData.current['sensorValues']['940nmch3'].push(data['940nmch3']);
-                recordingData.current['sensorValues']['940nmch4'].push(data['940nmch4']);
+                recordingData.current['sensorValues']['660nmch1'].push(data['660nmch1']);
+                recordingData.current['sensorValues']['660nmch2'].push(data['660nmch2']);
+                recordingData.current['sensorValues']['660nmch3'].push(data['660nmch3']);
+                recordingData.current['sensorValues']['660nmch4'].push(data['660nmch4']);
                 recordingData.current['sensorValues']['1200nmch1'].push(data['1200nmch1']);
                 recordingData.current['sensorValues']['1200nmch2'].push(data['1200nmch2']);
                 recordingData.current['sensorValues']['1200nmch3'].push(data['1200nmch3']);
@@ -202,13 +202,13 @@ export default function AcquisitionComponent(){
         // Update Diff Delta A Data
         const updateDiffDeltaA = (data) => {
             diffDeltaAChart.current.data.datasets[0].data.push(data['870nm']);
-            diffDeltaAChart.current.data.datasets[1].data.push(data['940nm']);
+            diffDeltaAChart.current.data.datasets[1].data.push(data['660nm']);
             diffDeltaAChart.current.data.datasets[2].data.push(data['1200nm']);
             diffDeltaAChart.current.data.datasets[3].data.push(data['1550nm']);
 
             if(isRecording.current){
                 recordingData.current['deltaValues']["870nm"].push(data['870nm']);
-                recordingData.current['deltaValues']["940nm"].push(data['940nm']);
+                recordingData.current['deltaValues']["660nm"].push(data['660nm']);
                 recordingData.current['deltaValues']["1200nm"].push(data['1200nm']);
                 recordingData.current['deltaValues']["1550nm"].push(data['1550nm']);
             }
@@ -224,11 +224,11 @@ export default function AcquisitionComponent(){
         // Update Concentration Data
         const updateDeltaC = (data) => {
             deltaCChart.current.data.datasets[0].data.push(data['870nm']);
-            deltaCChart.current.data.datasets[1].data.push(data['940nm']);
+            deltaCChart.current.data.datasets[1].data.push(data['660nm']);
 
             if(isRecording.current){
                 recordingData.current['concentrationValues']["870nm"].push(data['870nm']);
-                recordingData.current['concentrationValues']["940nm"].push(data['940nm']);
+                recordingData.current['concentrationValues']["660nm"].push(data['660nm']);
             }
 
             for(let dCount=0; dCount < deltaCChart.current.data.datasets.length; dCount++){
@@ -242,11 +242,11 @@ export default function AcquisitionComponent(){
         // Update Concentration @ Highpass Data
         const updateHighpass = (data) => {
             highpassChart.current.data.datasets[0].data.push(data['870nm']);
-            highpassChart.current.data.datasets[1].data.push(data['940nm']);
+            highpassChart.current.data.datasets[1].data.push(data['660nm']);
 
             if(isRecording.current){
                 recordingData.current['highpassFilterValues']["870nm"].push(data['870nm']);
-                recordingData.current['highpassFilterValues']["940nm"].push(data['940nm']);
+                recordingData.current['highpassFilterValues']["660nm"].push(data['660nm']);
             }    
 
             for(let dCount=0; dCount < highpassChart.current.data.datasets.length; dCount++){
@@ -260,11 +260,11 @@ export default function AcquisitionComponent(){
         // Update Tissue Saturation Index Data
         const updateTsi = (data) => {
             tsiChart.current.data.datasets[0].data.push(data['870nm']);
-            tsiChart.current.data.datasets[1].data.push(data['940nm']);
+            tsiChart.current.data.datasets[1].data.push(data['660nm']);
 
             if(isRecording.current){
                 recordingData.current['tsiValues']["870nm"].push(data['870nm']);
-                recordingData.current['tsiValues']["940nm"].push(data['940nm']);
+                recordingData.current['tsiValues']["660nm"].push(data['660nm']);
             }
 
             for(let dCount=0; dCount < tsiChart.current.data.datasets.length; dCount++){
