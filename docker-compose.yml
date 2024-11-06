@@ -134,4 +134,4 @@ networks:
 
 volumes:
   fnirsdatabasevolume:
-    external: true
+    # external: true # Removed External, Persistence needs fix 
