@@ -142,10 +142,22 @@ export default function LiveStream(){
 
         // Update Diff Delta A Data
         const updateDiffDeltaA = (data) => {
-            diffDeltaAChart.current.data.datasets[0].data.push(data['870nm']);
-            diffDeltaAChart.current.data.datasets[1].data.push(data['660nm']);
-            diffDeltaAChart.current.data.datasets[2].data.push(data['1200nm']);
-            diffDeltaAChart.current.data.datasets[3].data.push(data['1550nm']);
+            diffDeltaAChart.current.data.datasets[0].data.push(data['870nmch1']);
+            diffDeltaAChart.current.data.datasets[1].data.push(data['870nmch2']);
+            diffDeltaAChart.current.data.datasets[2].data.push(data['870nmch3']);
+            diffDeltaAChart.current.data.datasets[3].data.push(data['870nmch4']);
+            diffDeltaAChart.current.data.datasets[4].data.push(data['660nmch1']);
+            diffDeltaAChart.current.data.datasets[5].data.push(data['660nmch2']);
+            diffDeltaAChart.current.data.datasets[6].data.push(data['660nmch3']);
+            diffDeltaAChart.current.data.datasets[7].data.push(data['660nmch4']);
+            diffDeltaAChart.current.data.datasets[8].data.push(data['1200nmch1']);
+            diffDeltaAChart.current.data.datasets[9].data.push(data['1200nmch2']);
+            diffDeltaAChart.current.data.datasets[10].data.push(data['1200nmch3']);
+            diffDeltaAChart.current.data.datasets[11].data.push(data['1200nmch4']);
+            diffDeltaAChart.current.data.datasets[12].data.push(data['1550nmch1']);
+            diffDeltaAChart.current.data.datasets[13].data.push(data['1550nmch2']);
+            diffDeltaAChart.current.data.datasets[14].data.push(data['1550nmch3']);
+            diffDeltaAChart.current.data.datasets[15].data.push(data['1550nmch4']);
 
             for(let dCount=0; dCount < diffDeltaAChart.current.data.datasets.length; dCount++){
                 if(diffDeltaAChart.current.data.datasets[dCount].data.length > diffDeltaAChart.current.data.labels.length){
@@ -154,23 +166,41 @@ export default function LiveStream(){
             }
             diffDeltaAChart.current.update('none');
             setDiffDeltaAAvg0(()=>{
-                return avgFinder(diffDeltaAChart.current.data.datasets[0].data);
+                let avgAdder = (parseFloat(avgFinder(diffDeltaAChart.current.data.datasets[0].data)) + parseFloat(avgFinder(diffDeltaAChart.current.data.datasets[1].data)) + parseFloat(avgFinder(diffDeltaAChart.current.data.datasets[2].data)) + parseFloat(avgFinder(diffDeltaAChart.current.data.datasets[3].data))) / 4;
+                return avgAdder.toFixed(3);
             });
             setDiffDeltaAAvg1(()=>{
-                return avgFinder(diffDeltaAChart.current.data.datasets[1].data);
+                let avgAdder = (parseFloat(avgFinder(diffDeltaAChart.current.data.datasets[4].data)) + parseFloat(avgFinder(diffDeltaAChart.current.data.datasets[5].data)) + parseFloat(avgFinder(diffDeltaAChart.current.data.datasets[6].data)) + parseFloat(avgFinder(diffDeltaAChart.current.data.datasets[7].data))) / 4;
+                return avgAdder.toFixed(3);
             });
             setDiffDeltaACurrent0(()=>{
-                return diffDeltaAChart.current.data.datasets[0].data[diffDeltaAChart.current.data.datasets[0].data.length-1].toFixed(3);
+                let avgAdder = (diffDeltaAChart.current.data.datasets[0].data[diffDeltaAChart.current.data.datasets[0].data.length-1] + diffDeltaAChart.current.data.datasets[1].data[diffDeltaAChart.current.data.datasets[1].data.length-1] + diffDeltaAChart.current.data.datasets[2].data[diffDeltaAChart.current.data.datasets[2].data.length-1] + diffDeltaAChart.current.data.datasets[3].data[diffDeltaAChart.current.data.datasets[3].data.length-1]) / 4;
+                return avgAdder.toFixed(3);
             });
             setDiffDeltaACurrent1(()=>{
-                return diffDeltaAChart.current.data.datasets[1].data[diffDeltaAChart.current.data.datasets[1].data.length-1].toFixed(3);
+                let avgAdder = (diffDeltaAChart.current.data.datasets[4].data[diffDeltaAChart.current.data.datasets[4].data.length-1] + diffDeltaAChart.current.data.datasets[5].data[diffDeltaAChart.current.data.datasets[5].data.length-1] + diffDeltaAChart.current.data.datasets[6].data[diffDeltaAChart.current.data.datasets[6].data.length-1] + diffDeltaAChart.current.data.datasets[7].data[diffDeltaAChart.current.data.datasets[7].data.length-1]) / 4;
+                return avgAdder.toFixed(3);
             });
         };
 
         // Update Concentration Data
         const updateDeltaC = (data) => {
-            deltaCChart.current.data.datasets[0].data.push(data['870nm']);
-            deltaCChart.current.data.datasets[1].data.push(data['660nm']);
+            deltaCChart.current.data.datasets[0].data.push(data['870nmch1']);
+            deltaCChart.current.data.datasets[1].data.push(data['870nmch2']);
+            deltaCChart.current.data.datasets[2].data.push(data['870nmch3']);
+            deltaCChart.current.data.datasets[3].data.push(data['870nmch4']);
+            deltaCChart.current.data.datasets[4].data.push(data['660nmch1']);
+            deltaCChart.current.data.datasets[5].data.push(data['660nmch2']);
+            deltaCChart.current.data.datasets[6].data.push(data['660nmch3']);
+            deltaCChart.current.data.datasets[7].data.push(data['660nmch4']);
+            deltaCChart.current.data.datasets[8].data.push(data['1200nmch1']);
+            deltaCChart.current.data.datasets[9].data.push(data['1200nmch2']);
+            deltaCChart.current.data.datasets[10].data.push(data['1200nmch3']);
+            deltaCChart.current.data.datasets[11].data.push(data['1200nmch4']);
+            deltaCChart.current.data.datasets[12].data.push(data['1550nmch1']);
+            deltaCChart.current.data.datasets[13].data.push(data['1550nmch2']);
+            deltaCChart.current.data.datasets[14].data.push(data['1550nmch3']);
+            deltaCChart.current.data.datasets[15].data.push(data['1550nmch4']);
 
             for(let dCount=0; dCount < deltaCChart.current.data.datasets.length; dCount++){
                 if(deltaCChart.current.data.datasets[dCount].data.length > deltaCChart.current.data.labels.length){
@@ -179,16 +209,20 @@ export default function LiveStream(){
             }
             deltaCChart.current.update('none');
             setDeltaCAvg0(()=>{
-                return avgFinder(deltaCChart.current.data.datasets[0].data);
+                let avgAdder = (parseFloat(avgFinder(deltaCChart.current.data.datasets[0].data)) + parseFloat(avgFinder(deltaCChart.current.data.datasets[1].data)) + parseFloat(avgFinder(deltaCChart.current.data.datasets[2].data)) + parseFloat(avgFinder(deltaCChart.current.data.datasets[3].data))) / 4;
+                return avgAdder.toFixed(3);
             });
             setDeltaCAvg1(()=>{
-                return avgFinder(deltaCChart.current.data.datasets[1].data);
+                let avgAdder = (parseFloat(avgFinder(deltaCChart.current.data.datasets[4].data)) + parseFloat(avgFinder(deltaCChart.current.data.datasets[5].data)) + parseFloat(avgFinder(deltaCChart.current.data.datasets[6].data)) + parseFloat(avgFinder(deltaCChart.current.data.datasets[7].data))) / 4;
+                return avgAdder.toFixed(3);
             });
             setDeltaCCurrent0(()=>{
-                return deltaCChart.current.data.datasets[0].data[deltaCChart.current.data.datasets[0].data.length-1].toFixed(3);
+                let avgAdder = (deltaCChart.current.data.datasets[0].data[deltaCChart.current.data.datasets[0].data.length-1] + deltaCChart.current.data.datasets[1].data[deltaCChart.current.data.datasets[1].data.length-1] + deltaCChart.current.data.datasets[2].data[deltaCChart.current.data.datasets[2].data.length-1] + deltaCChart.current.data.datasets[3].data[deltaCChart.current.data.datasets[3].data.length-1]) / 4;
+                return avgAdder.toFixed(3);
             });
             setDeltaCCurrent1(()=>{
-                return deltaCChart.current.data.datasets[1].data[deltaCChart.current.data.datasets[1].data.length-1].toFixed(3);
+                let avgAdder = (deltaCChart.current.data.datasets[4].data[deltaCChart.current.data.datasets[4].data.length-1] + deltaCChart.current.data.datasets[5].data[deltaCChart.current.data.datasets[5].data.length-1] + deltaCChart.current.data.datasets[6].data[deltaCChart.current.data.datasets[6].data.length-1] + deltaCChart.current.data.datasets[7].data[deltaCChart.current.data.datasets[7].data.length-1]) / 4;
+                return avgAdder.toFixed(3);
             });
         };
 

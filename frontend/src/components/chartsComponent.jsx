@@ -73,10 +73,22 @@ export default function ChartsComponent(){
                 data: {
                     labels: labelList,
                     datasets:[
-                        {label: 'Hb ( 870nm Wavelength )', data: []},
-                        {label: 'H2O ( 660nm Wavelength )', data: []},
-                        {label: '1200nm Wavelength', data: []},
-                        {label: '1500nm Wavelength', data: []}
+                        {label: 'Hb ( 870nm Wavelength ) # CH1', data: []},
+                        {label: 'Hb ( 870nm Wavelength ) # CH2', data: []},
+                        {label: 'Hb ( 870nm Wavelength ) # CH3', data: []},
+                        {label: 'Hb ( 870nm Wavelength ) # CH4', data: []},
+                        {label: 'H2O ( 660nm Wavelength ) # CH1', data: []},
+                        {label: 'H2O ( 660nm Wavelength ) # CH2', data: []},
+                        {label: 'H2O ( 660nm Wavelength ) # CH3', data: []},
+                        {label: 'H2O ( 660nm Wavelength ) # CH4', data: []},
+                        {label: '1200nm Wavelength # CH1', data: []},
+                        {label: '1200nm Wavelength # CH2', data: []},
+                        {label: '1200nm Wavelength # CH3', data: []},
+                        {label: '1200nm Wavelength # CH4', data: []},
+                        {label: '1500nm Wavelength # CH1', data: []},
+                        {label: '1500nm Wavelength # CH2', data: []},
+                        {label: '1500nm Wavelength # CH3', data: []},
+                        {label: '1500nm Wavelength # CH4', data: []}
                     ]
                 },
                 options: {
@@ -104,10 +116,22 @@ export default function ChartsComponent(){
                 data: {
                     labels: labelList,
                     datasets:[
-                        {label: 'Hb ( 870nm Wavelength )', data: []},
-                        {label: 'H2O ( 660nm Wavelength )', data: []},
-                        {label: '1200nm Wavelength', data: []},
-                        {label: '1500nm Wavelength', data: []}
+                        {label: 'Hb ( 870nm Wavelength ) # CH1', data: []},
+                        {label: 'Hb ( 870nm Wavelength ) # CH2', data: []},
+                        {label: 'Hb ( 870nm Wavelength ) # CH3', data: []},
+                        {label: 'Hb ( 870nm Wavelength ) # CH4', data: []},
+                        {label: 'H2O ( 660nm Wavelength ) # CH1', data: []},
+                        {label: 'H2O ( 660nm Wavelength ) # CH2', data: []},
+                        {label: 'H2O ( 660nm Wavelength ) # CH3', data: []},
+                        {label: 'H2O ( 660nm Wavelength ) # CH4', data: []},
+                        {label: '1200nm Wavelength # CH1', data: []},
+                        {label: '1200nm Wavelength # CH2', data: []},
+                        {label: '1200nm Wavelength # CH3', data: []},
+                        {label: '1200nm Wavelength # CH4', data: []},
+                        {label: '1500nm Wavelength # CH1', data: []},
+                        {label: '1500nm Wavelength # CH2', data: []},
+                        {label: '1500nm Wavelength # CH3', data: []},
+                        {label: '1500nm Wavelength # CH4', data: []}
                     ]
                 },
                 options: {

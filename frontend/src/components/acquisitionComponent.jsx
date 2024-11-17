@@ -55,8 +55,8 @@ export default function AcquisitionComponent(){
     const dataReset = () => {
         recordingData.current = {
             sensorValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "660nmch1": [], "660nmch2": [], "660nmch3": [], "660nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
-            deltaValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
-            concentrationValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
+            deltaValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "660nmch1": [], "660nmch2": [], "660nmch3": [], "660nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
+            concentrationValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "660nmch1": [], "660nmch2": [], "660nmch3": [], "660nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
             highpassFilterValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
             tsiValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []}
         };
@@ -201,16 +201,40 @@ export default function AcquisitionComponent(){
 
         // Update Diff Delta A Data
         const updateDiffDeltaA = (data) => {
-            diffDeltaAChart.current.data.datasets[0].data.push(data['870nm']);
-            diffDeltaAChart.current.data.datasets[1].data.push(data['660nm']);
-            diffDeltaAChart.current.data.datasets[2].data.push(data['1200nm']);
-            diffDeltaAChart.current.data.datasets[3].data.push(data['1550nm']);
+            diffDeltaAChart.current.data.datasets[0].data.push(data['870nmch1']);
+            diffDeltaAChart.current.data.datasets[1].data.push(data['870nmch2']);
+            diffDeltaAChart.current.data.datasets[2].data.push(data['870nmch3']);
+            diffDeltaAChart.current.data.datasets[3].data.push(data['870nmch4']);
+            diffDeltaAChart.current.data.datasets[4].data.push(data['660nmch1']);
+            diffDeltaAChart.current.data.datasets[5].data.push(data['660nmch2']);
+            diffDeltaAChart.current.data.datasets[6].data.push(data['660nmch3']);
+            diffDeltaAChart.current.data.datasets[7].data.push(data['660nmch4']);
+            diffDeltaAChart.current.data.datasets[8].data.push(data['1200nmch1']);
+            diffDeltaAChart.current.data.datasets[9].data.push(data['1200nmch2']);
+            diffDeltaAChart.current.data.datasets[10].data.push(data['1200nmch3']);
+            diffDeltaAChart.current.data.datasets[11].data.push(data['1200nmch4']);
+            diffDeltaAChart.current.data.datasets[12].data.push(data['1550nmch1']);
+            diffDeltaAChart.current.data.datasets[13].data.push(data['1550nmch2']);
+            diffDeltaAChart.current.data.datasets[14].data.push(data['1550nmch3']);
+            diffDeltaAChart.current.data.datasets[15].data.push(data['1550nmch4']);
 
             if(isRecording.current){
-                recordingData.current['deltaValues']["870nm"].push(data['870nm']);
-                recordingData.current['deltaValues']["660nm"].push(data['660nm']);
-                recordingData.current['deltaValues']["1200nm"].push(data['1200nm']);
-                recordingData.current['deltaValues']["1550nm"].push(data['1550nm']);
+                recordingData.current['deltaValues']["870nmch1"].push(data['870nmch1']);
+                recordingData.current['deltaValues']["870nmch2"].push(data['870nmch2']);
+                recordingData.current['deltaValues']["870nmch3"].push(data['870nmch3']);
+                recordingData.current['deltaValues']["870nmch4"].push(data['870nmch4']);
+                recordingData.current['deltaValues']["660nmch1"].push(data['660nmch1']);
+                recordingData.current['deltaValues']["660nmch2"].push(data['660nmch2']);
+                recordingData.current['deltaValues']["660nmch3"].push(data['660nmch3']);
+                recordingData.current['deltaValues']["660nmch4"].push(data['660nmch4']);
+                recordingData.current['deltaValues']["1200nmch1"].push(data['1200nmch1']);
+                recordingData.current['deltaValues']["1200nmch2"].push(data['1200nmch2']);
+                recordingData.current['deltaValues']["1200nmch3"].push(data['1200nmch3']);
+                recordingData.current['deltaValues']["1200nmch4"].push(data['1200nmch4']);
+                recordingData.current['deltaValues']["1550nmch1"].push(data['1550nmch1']);
+                recordingData.current['deltaValues']["1550nmch2"].push(data['1550nmch2']);
+                recordingData.current['deltaValues']["1550nmch3"].push(data['1550nmch3']);
+                recordingData.current['deltaValues']["1550nmch4"].push(data['1550nmch4']);
             }
 
             for(let dCount=0; dCount < diffDeltaAChart.current.data.datasets.length; dCount++){
@@ -223,12 +247,40 @@ export default function AcquisitionComponent(){
 
         // Update Concentration Data
         const updateDeltaC = (data) => {
-            deltaCChart.current.data.datasets[0].data.push(data['870nm']);
-            deltaCChart.current.data.datasets[1].data.push(data['660nm']);
+            deltaCChart.current.data.datasets[0].data.push(data['870nmch1']);
+            deltaCChart.current.data.datasets[1].data.push(data['870nmch2']);
+            deltaCChart.current.data.datasets[2].data.push(data['870nmch3']);
+            deltaCChart.current.data.datasets[3].data.push(data['870nmch4']);
+            deltaCChart.current.data.datasets[4].data.push(data['660nmch1']);
+            deltaCChart.current.data.datasets[5].data.push(data['660nmch2']);
+            deltaCChart.current.data.datasets[6].data.push(data['660nmch3']);
+            deltaCChart.current.data.datasets[7].data.push(data['660nmch4']);
+            deltaCChart.current.data.datasets[8].data.push(data['1200nmch1']);
+            deltaCChart.current.data.datasets[9].data.push(data['1200nmch2']);
+            deltaCChart.current.data.datasets[10].data.push(data['1200nmch3']);
+            deltaCChart.current.data.datasets[11].data.push(data['1200nmch4']);
+            deltaCChart.current.data.datasets[12].data.push(data['1550nmch1']);
+            deltaCChart.current.data.datasets[13].data.push(data['1550nmch2']);
+            deltaCChart.current.data.datasets[14].data.push(data['1550nmch3']);
+            deltaCChart.current.data.datasets[15].data.push(data['1550nmch4']);
 
             if(isRecording.current){
-                recordingData.current['concentrationValues']["870nm"].push(data['870nm']);
-                recordingData.current['concentrationValues']["660nm"].push(data['660nm']);
+                recordingData.current['concentrationValues']["870nmch1"].push(data['870nmch1']);
+                recordingData.current['concentrationValues']["870nmch2"].push(data['870nmch2']);
+                recordingData.current['concentrationValues']["870nmch3"].push(data['870nmch3']);
+                recordingData.current['concentrationValues']["870nmch4"].push(data['870nmch4']);
+                recordingData.current['concentrationValues']["660nmch1"].push(data['660nmch1']);
+                recordingData.current['concentrationValues']["660nmch2"].push(data['660nmch2']);
+                recordingData.current['concentrationValues']["660nmch3"].push(data['660nmch3']);
+                recordingData.current['concentrationValues']["660nmch4"].push(data['660nmch4']);
+                recordingData.current['concentrationValues']["1200nmch1"].push(data['1200nmch1']);
+                recordingData.current['concentrationValues']["1200nmch2"].push(data['1200nmch2']);
+                recordingData.current['concentrationValues']["1200nmch3"].push(data['1200nmch3']);
+                recordingData.current['concentrationValues']["1200nmch4"].push(data['1200nmch4']);
+                recordingData.current['concentrationValues']["1550nmch1"].push(data['1550nmch1']);
+                recordingData.current['concentrationValues']["1550nmch2"].push(data['1550nmch2']);
+                recordingData.current['concentrationValues']["1550nmch3"].push(data['1550nmch3']);
+                recordingData.current['concentrationValues']["1550nmch4"].push(data['1550nmch4']);
             }
 
             for(let dCount=0; dCount < deltaCChart.current.data.datasets.length; dCount++){
