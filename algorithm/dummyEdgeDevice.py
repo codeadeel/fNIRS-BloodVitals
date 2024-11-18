@@ -4,6 +4,7 @@
 
 # %%
 # Importing Libraries
+import os
 import random
 import time
 import socketio
@@ -11,7 +12,7 @@ import socketio
 if __name__=="__main__":
     # Initializing Socker Connection
     sio = socketio.SimpleClient()
-    sio.connect('https://fnirs.codeadeel.com')
+    sio.connect(os.environ.get('PORTAL_ADDRESS', "https://fnirs.codeadeel.com"))
     deviceID = random.random()
 
     # Sending Dummy Data

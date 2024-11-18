@@ -38,12 +38,9 @@ class algoInference:
             [3226.56, 0.1875]
         ]))
         self.localRawDataPool = dict()
-        self.localCorelationPool = dict()
         self.localDeltaPool = dict()
-        self.localDeltaCPool = {
-            '870nm': [0] * self.filterWindow,
-            '660nm': [0] * self.filterWindow
-        }
+        self.localDeltaCPool = dict()
+        self.localCorelationPool = dict()
         self.localDeltaCHighpassPool = dict()
         self.localTSIPool = dict()
     
@@ -77,45 +74,61 @@ class algoInference:
         if self.runOnce:
             self.runOnce = False
             for i in list(data['values'].keys()):
+                # Initialize the waveforms
                 self.localRawDataPool[i] = [0] * self.filterWindow
+                self.localDeltaPool[i] = [0] * self.filterWindow
+                self.localDeltaCPool[i] = [0] * self.filterWindow
+        
         for i in list(data['values'].keys()):
+            # Parsing Raw Data
             self.localRawDataPool[i].append(data['values'][i])
             del self.localRawDataPool[i][0]
+
+            # Find DeltaA of the Raw Waveform
+            self.localDeltaPool[i].append(self.localRawDataPool[i][-1] - self.localRawDataPool[i][-2])
+            del self.localDeltaPool[i][0]
+
+            # Delete First Element of Concentration Pool
+            del self.localDeltaCPool[i][0]
         
-        # Find Correlation Between Waveforms
-        self.localCorelationPool['870nm'] = self.getCorrelation(self.localRawDataPool['870nmch1'], self.localRawDataPool['870nmch2'], self.localRawDataPool['870nmch3'], self.localRawDataPool['870nmch4'])
-        self.localCorelationPool['660nm'] = self.getCorrelation(self.localRawDataPool['660nmch1'], self.localRawDataPool['660nmch2'], self.localRawDataPool['660nmch3'], self.localRawDataPool['660nmch4'])
-        self.localCorelationPool['1200nm'] = self.getCorrelation(self.localRawDataPool['1200nmch1'], self.localRawDataPool['1200nmch2'], self.localRawDataPool['1200nmch3'], self.localRawDataPool['1200nmch4'])
-        self.localCorelationPool['1550nm'] = self.getCorrelation(self.localRawDataPool['1550nmch1'], self.localRawDataPool['1550nmch2'], self.localRawDataPool['1550nmch3'], self.localRawDataPool['1550nmch4'])
-
-        # Find Delta of the Waveform
-        self.localDeltaPool['870nm'] = self.localCorelationPool['870nm'][-1] - self.localCorelationPool['870nm'][-2]
-        self.localDeltaPool['660nm'] = self.localCorelationPool['660nm'][-1] - self.localCorelationPool['660nm'][-2]
-        self.localDeltaPool['1200nm'] = self.localCorelationPool['1200nm'][-1] - self.localCorelationPool['1200nm'][-2]
-        self.localDeltaPool['1550nm'] = self.localCorelationPool['1550nm'][-1] - self.localCorelationPool['1550nm'][-2]
-
         # Find Concentration Levels
         delC = np.dot(self.coeffMat, np.array([
-            [self.localDeltaPool['870nm']],
-            [self.localDeltaPool['660nm']]
+            [self.localDeltaPool['870nmch1'][-1], self.localDeltaPool['870nmch2'][-1], self.localDeltaPool['870nmch3'][-1], self.localDeltaPool['870nmch4'][-1]],
+            [self.localDeltaPool['660nmch1'][-1], self.localDeltaPool['660nmch2'][-1], self.localDeltaPool['660nmch3'][-1], self.localDeltaPool['660nmch4'][-1]]
         ]))
 
-        self.localDeltaCPool['870nm'].append(delC[0][0])
-        self.localDeltaCPool['660nm'].append(delC[1][0])
-        del self.localDeltaCPool['870nm'][0]
-        del self.localDeltaCPool['660nm'][0]
+        self.localDeltaCPool['870nmch1'].append(delC[0][0])
+        self.localDeltaCPool['870nmch2'].append(delC[0][1])
+        self.localDeltaCPool['870nmch3'].append(delC[0][2])
+        self.localDeltaCPool['870nmch4'].append(delC[0][3])
+        self.localDeltaCPool['660nmch1'].append(delC[1][0])
+        self.localDeltaCPool['660nmch2'].append(delC[1][1])
+        self.localDeltaCPool['660nmch3'].append(delC[1][2])
+        self.localDeltaCPool['660nmch4'].append(delC[1][3])
+        self.localDeltaCPool['1200nmch1'].append(0)
+        self.localDeltaCPool['1200nmch2'].append(0)
+        self.localDeltaCPool['1200nmch3'].append(0)
+        self.localDeltaCPool['1200nmch4'].append(0)
+        self.localDeltaCPool['1550nmch1'].append(0)
+        self.localDeltaCPool['1550nmch2'].append(0)
+        self.localDeltaCPool['1550nmch3'].append(0)
+        self.localDeltaCPool['1550nmch4'].append(0)
+
+        # Find Correlation Between Waveforms
+        self.localCorelationPool['870nm'] = self.getCorrelation(self.localDeltaCPool['870nmch1'], self.localDeltaCPool['870nmch2'], self.localDeltaCPool['870nmch3'], self.localDeltaCPool['870nmch4'])
+        self.localCorelationPool['660nm'] = self.getCorrelation(self.localDeltaCPool['660nmch1'], self.localDeltaCPool['660nmch2'], self.localDeltaCPool['660nmch3'], self.localDeltaCPool['660nmch4'])
 
         # Apply Highpass Filter
-        self.localDeltaCHighpassPool['870nm'] = lfilter(self.filterCoeff2, self.filterCoeff1, self.localDeltaCPool['870nm'])
-        self.localDeltaCHighpassPool['660nm'] = lfilter(self.filterCoeff2, self.filterCoeff1, self.localDeltaCPool['660nm'])
+        self.localDeltaCHighpassPool['870nm'] = lfilter(self.filterCoeff2, self.filterCoeff1, self.localCorelationPool['870nm'])
+        self.localDeltaCHighpassPool['660nm'] = lfilter(self.filterCoeff2, self.filterCoeff1, self.localCorelationPool['660nm'])
 
         # Finding TSI Values
         filterAvg1 = float(np.sum(self.localDeltaCHighpassPool['870nm']) / len(self.localDeltaCHighpassPool['870nm']))
         filterAvg2 = float(np.sum(self.localDeltaCHighpassPool['660nm']) / len(self.localDeltaCHighpassPool['660nm']))
 
-        if (self.localDeltaCPool['870nm'][-1] + self.localDeltaCPool['660nm'][-1])>0:
-            self.localTSIPool['870nm'] = ((self.localDeltaCPool['870nm'][-1] / (self.localDeltaCPool['870nm'][-1] + self.localDeltaCPool['660nm'][-1])) * 7) + 90
-            self.localTSIPool['660nm'] = ((self.localDeltaCPool['660nm'][-1] / (self.localDeltaCPool['870nm'][-1] + self.localDeltaCPool['660nm'][-1])) * 7) + 90
+        if (self.localCorelationPool['870nm'][-1] + self.localCorelationPool['660nm'][-1])>0:
+            self.localTSIPool['870nm'] = ((self.localCorelationPool['870nm'][-1] / (self.localCorelationPool['870nm'][-1] + self.localCorelationPool['660nm'][-1])) * 7) + 90
+            self.localTSIPool['660nm'] = ((self.localCorelationPool['660nm'][-1] / (self.localCorelationPool['870nm'][-1] + self.localCorelationPool['660nm'][-1])) * 7) + 90
         else:
             self.localTSIPool['870nm'] = 0
             self.localTSIPool['660nm'] = 0
@@ -142,7 +155,10 @@ class algoInference:
         """
         This method returns the deltaA data to the dashboard
         """
-        return self.localDeltaPool
+        outer = dict()
+        for i in list(self.localDeltaPool.keys()):
+            outer[i] = self.localDeltaPool[i][-1]
+        return outer
 
     def getDeltaCData(self):
         """
