@@ -295,10 +295,14 @@ export default function AcquisitionComponent(){
         const updateHighpass = (data) => {
             highpassChart.current.data.datasets[0].data.push(data['870nm']);
             highpassChart.current.data.datasets[1].data.push(data['660nm']);
+            highpassChart.current.data.datasets[2].data.push(data['1200nm']);
+            highpassChart.current.data.datasets[3].data.push(data['1550nm']);
 
             if(isRecording.current){
                 recordingData.current['highpassFilterValues']["870nm"].push(data['870nm']);
                 recordingData.current['highpassFilterValues']["660nm"].push(data['660nm']);
+                recordingData.current['highpassFilterValues']["1200nm"].push(data['1200nm']);
+                recordingData.current['highpassFilterValues']["1550nm"].push(data['1550nm']);
             }    
 
             for(let dCount=0; dCount < highpassChart.current.data.datasets.length; dCount++){
@@ -313,10 +317,14 @@ export default function AcquisitionComponent(){
         const updateTsi = (data) => {
             tsiChart.current.data.datasets[0].data.push(data['870nm']);
             tsiChart.current.data.datasets[1].data.push(data['660nm']);
+            tsiChart.current.data.datasets[2].data.push(data['1200nm']);
+            tsiChart.current.data.datasets[3].data.push(data['1550nm']);
 
             if(isRecording.current){
                 recordingData.current['tsiValues']["870nm"].push(data['870nm']);
                 recordingData.current['tsiValues']["660nm"].push(data['660nm']);
+                recordingData.current['tsiValues']["1200nm"].push(data['1200nm']);
+                recordingData.current['tsiValues']["1550nm"].push(data['1550nm']);
             }
 
             for(let dCount=0; dCount < tsiChart.current.data.datasets.length; dCount++){

@@ -34,18 +34,18 @@ export default function ChartsComponent(){
                         {label: 'Hb ( 870nm Wavelength ) # CH2', data: []},
                         {label: 'Hb ( 870nm Wavelength ) # CH3', data: []},
                         {label: 'Hb ( 870nm Wavelength ) # CH4', data: []},
-                        {label: 'H2O ( 660nm Wavelength ) # CH1', data: []},
-                        {label: 'H2O ( 660nm Wavelength ) # CH2', data: []},
-                        {label: 'H2O ( 660nm Wavelength ) # CH3', data: []},
-                        {label: 'H2O ( 660nm Wavelength ) # CH4', data: []},
-                        {label: '1200nm Wavelength # CH1', data: []},
-                        {label: '1200nm Wavelength # CH2', data: []},
-                        {label: '1200nm Wavelength # CH3', data: []},
-                        {label: '1200nm Wavelength # CH4', data: []},
-                        {label: '1500nm Wavelength # CH1', data: []},
-                        {label: '1500nm Wavelength # CH2', data: []},
-                        {label: '1500nm Wavelength # CH3', data: []},
-                        {label: '1500nm Wavelength # CH4', data: []}
+                        {label: 'HbO2 ( 660nm Wavelength ) # CH1', data: []},
+                        {label: 'HbO2 ( 660nm Wavelength ) # CH2', data: []},
+                        {label: 'HbO2 ( 660nm Wavelength ) # CH3', data: []},
+                        {label: 'HbO2 ( 660nm Wavelength ) # CH4', data: []},
+                        {label: 'H2O ( 1200nm Wavelength ) # CH1', data: []},
+                        {label: 'H2O ( 1200nm Wavelength ) # CH2', data: []},
+                        {label: 'H2O ( 1200nm Wavelength ) # CH3', data: []},
+                        {label: 'H2O ( 1200nm Wavelength ) # CH4', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) # CH1', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) # CH2', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) # CH3', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) # CH4', data: []}
                     ]
                 },
                 options: {
@@ -77,18 +77,18 @@ export default function ChartsComponent(){
                         {label: 'Hb ( 870nm Wavelength ) # CH2', data: []},
                         {label: 'Hb ( 870nm Wavelength ) # CH3', data: []},
                         {label: 'Hb ( 870nm Wavelength ) # CH4', data: []},
-                        {label: 'H2O ( 660nm Wavelength ) # CH1', data: []},
-                        {label: 'H2O ( 660nm Wavelength ) # CH2', data: []},
-                        {label: 'H2O ( 660nm Wavelength ) # CH3', data: []},
-                        {label: 'H2O ( 660nm Wavelength ) # CH4', data: []},
-                        {label: '1200nm Wavelength # CH1', data: []},
-                        {label: '1200nm Wavelength # CH2', data: []},
-                        {label: '1200nm Wavelength # CH3', data: []},
-                        {label: '1200nm Wavelength # CH4', data: []},
-                        {label: '1500nm Wavelength # CH1', data: []},
-                        {label: '1500nm Wavelength # CH2', data: []},
-                        {label: '1500nm Wavelength # CH3', data: []},
-                        {label: '1500nm Wavelength # CH4', data: []}
+                        {label: 'HbO2 ( 660nm Wavelength ) # CH1', data: []},
+                        {label: 'HbO2 ( 660nm Wavelength ) # CH2', data: []},
+                        {label: 'HbO2 ( 660nm Wavelength ) # CH3', data: []},
+                        {label: 'HbO2 ( 660nm Wavelength ) # CH4', data: []},
+                        {label: 'H2O ( 1200nm Wavelength ) # CH1', data: []},
+                        {label: 'H2O ( 1200nm Wavelength ) # CH2', data: []},
+                        {label: 'H2O ( 1200nm Wavelength ) # CH3', data: []},
+                        {label: 'H2O ( 1200nm Wavelength ) # CH4', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) # CH1', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) # CH2', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) # CH3', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) # CH4', data: []}
                     ]
                 },
                 options: {
@@ -120,18 +120,18 @@ export default function ChartsComponent(){
                         {label: 'Hb ( 870nm Wavelength ) # CH2', data: []},
                         {label: 'Hb ( 870nm Wavelength ) # CH3', data: []},
                         {label: 'Hb ( 870nm Wavelength ) # CH4', data: []},
-                        {label: 'H2O ( 660nm Wavelength ) # CH1', data: []},
-                        {label: 'H2O ( 660nm Wavelength ) # CH2', data: []},
-                        {label: 'H2O ( 660nm Wavelength ) # CH3', data: []},
-                        {label: 'H2O ( 660nm Wavelength ) # CH4', data: []},
-                        {label: '1200nm Wavelength # CH1', data: []},
-                        {label: '1200nm Wavelength # CH2', data: []},
-                        {label: '1200nm Wavelength # CH3', data: []},
-                        {label: '1200nm Wavelength # CH4', data: []},
-                        {label: '1500nm Wavelength # CH1', data: []},
-                        {label: '1500nm Wavelength # CH2', data: []},
-                        {label: '1500nm Wavelength # CH3', data: []},
-                        {label: '1500nm Wavelength # CH4', data: []}
+                        {label: 'HbO2 ( 660nm Wavelength ) # CH1', data: []},
+                        {label: 'HbO2 ( 660nm Wavelength ) # CH2', data: []},
+                        {label: 'HbO2 ( 660nm Wavelength ) # CH3', data: []},
+                        {label: 'HbO2 ( 660nm Wavelength ) # CH4', data: []},
+                        {label: 'H2O ( 1200nm Wavelength ) # CH1', data: []},
+                        {label: 'H2O ( 1200nm Wavelength ) # CH2', data: []},
+                        {label: 'H2O ( 1200nm Wavelength ) # CH3', data: []},
+                        {label: 'H2O ( 1200nm Wavelength ) # CH4', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) # CH1', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) # CH2', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) # CH3', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) # CH4', data: []}
                     ]
                 },
                 options: {
@@ -160,9 +160,9 @@ export default function ChartsComponent(){
                     labels: labelList,
                     datasets:[
                         {label: 'Hb ( 870nm Wavelength )', data: []},
-                        {label: 'H2O ( 660nm Wavelength )', data: []},
-                        {label: '1200nm Wavelength', data: []},
-                        {label: '1500nm Wavelength', data: []}
+                        {label: 'HbO2 ( 660nm Wavelength )', data: []},
+                        {label: 'H2O ( 1200nm Wavelength )', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength )', data: []}
                     ]
                 },
                 options: {
@@ -191,9 +191,9 @@ export default function ChartsComponent(){
                     labels: labelList,
                     datasets:[
                         {label: 'Hb ( 870nm Wavelength )', data: []},
-                        {label: 'H2O ( 660nm Wavelength )', data: []},
-                        {label: '1200nm Wavelength', data: []},
-                        {label: '1500nm Wavelength', data: []}
+                        {label: 'HbO2 ( 660nm Wavelength )', data: []},
+                        {label: 'H2O ( 1200nm Wavelength )', data: []},
+                        {label: 'Glucose ( 1550nm Wavelength ) ', data: []}
                     ]
                 },
                 options: {
@@ -226,19 +226,19 @@ export default function ChartsComponent(){
     // Main component definition
     return (
         <div className='flex flex-col sm:flex-row flex-wrap gap-5'>
-            <div className='w-[31.25rem]'>
+            <div className='w-[35rem]'>
                 <canvas ref={chart1Placement} height={250} />
             </div>
-            <div className='w-[25rem] sm:w-[31.25rem]'>
+            <div className='w-[35rem]'>
                 <canvas ref={chart2Placement} height={250} />
             </div>
-            <div className='w-[25rem] sm:w-[31.25rem]'>
+            <div className='w-[35rem]'>
                 <canvas ref={chart3Placement} height={250} />
             </div>
-            <div className='w-[25rem] sm:w-[31.25rem]'>
+            <div className='w-[25rem] sm:w-[35rem]'>
                 <canvas ref={chart4Placement} height={250} />
             </div>
-            <div className='w-[25rem] sm:w-[31.25rem]'>
+            <div className='w-[25rem] sm:w-[35rem]'>
                 <canvas ref={chart5Placement} height={250} />
             </div>
         </div>

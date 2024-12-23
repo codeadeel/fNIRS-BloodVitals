@@ -34,8 +34,10 @@ class algoInference:
         self.filterCoeff1, self.filterCoeff2 = butter(self.filterOrder, self.normCutOff, btype="highpass")
         self.runOnce = True
         self.coeffMat = np.linalg.inv(np.array([
-            [705.84, 3.713],
-            [3226.56, 0.1875]
+            [3.78, 6.041, 0.053645, -0.00066],
+            [17.28, 1.711, 0.0035719, 0.0002],
+            [0.05, 0.075, 1.0357, 0.00075],
+            [0.075, 1, 7.9959, 0.723]
         ]))
         self.localRawDataPool = dict()
         self.localDeltaPool = dict()
@@ -94,7 +96,9 @@ class algoInference:
         # Find Concentration Levels
         delC = np.dot(self.coeffMat, np.array([
             [self.localDeltaPool['870nmch1'][-1], self.localDeltaPool['870nmch2'][-1], self.localDeltaPool['870nmch3'][-1], self.localDeltaPool['870nmch4'][-1]],
-            [self.localDeltaPool['660nmch1'][-1], self.localDeltaPool['660nmch2'][-1], self.localDeltaPool['660nmch3'][-1], self.localDeltaPool['660nmch4'][-1]]
+            [self.localDeltaPool['660nmch1'][-1], self.localDeltaPool['660nmch2'][-1], self.localDeltaPool['660nmch3'][-1], self.localDeltaPool['660nmch4'][-1]],
+            [self.localDeltaPool['1200nmch1'][-1], self.localDeltaPool['1200nmch2'][-1], self.localDeltaPool['1200nmch3'][-1], self.localDeltaPool['1200nmch4'][-1]],
+            [self.localDeltaPool['1550nmch1'][-1], self.localDeltaPool['1550nmch2'][-1], self.localDeltaPool['1550nmch3'][-1], self.localDeltaPool['1550nmch4'][-1]]
         ]))
 
         self.localDeltaCPool['870nmch1'].append(delC[0][0])
@@ -105,42 +109,60 @@ class algoInference:
         self.localDeltaCPool['660nmch2'].append(delC[1][1])
         self.localDeltaCPool['660nmch3'].append(delC[1][2])
         self.localDeltaCPool['660nmch4'].append(delC[1][3])
-        self.localDeltaCPool['1200nmch1'].append(0)
-        self.localDeltaCPool['1200nmch2'].append(0)
-        self.localDeltaCPool['1200nmch3'].append(0)
-        self.localDeltaCPool['1200nmch4'].append(0)
-        self.localDeltaCPool['1550nmch1'].append(0)
-        self.localDeltaCPool['1550nmch2'].append(0)
-        self.localDeltaCPool['1550nmch3'].append(0)
-        self.localDeltaCPool['1550nmch4'].append(0)
+        self.localDeltaCPool['1200nmch1'].append(delC[2][0])
+        self.localDeltaCPool['1200nmch2'].append(delC[2][1])
+        self.localDeltaCPool['1200nmch3'].append(delC[2][2])
+        self.localDeltaCPool['1200nmch4'].append(delC[2][3])
+        self.localDeltaCPool['1550nmch1'].append(delC[3][0])
+        self.localDeltaCPool['1550nmch2'].append(delC[3][1])
+        self.localDeltaCPool['1550nmch3'].append(delC[3][2])
+        self.localDeltaCPool['1550nmch4'].append(delC[3][3])
 
         # Find Correlation Between Waveforms
         self.localCorelationPool['870nm'] = self.getCorrelation(self.localDeltaCPool['870nmch1'], self.localDeltaCPool['870nmch2'], self.localDeltaCPool['870nmch3'], self.localDeltaCPool['870nmch4'])
         self.localCorelationPool['660nm'] = self.getCorrelation(self.localDeltaCPool['660nmch1'], self.localDeltaCPool['660nmch2'], self.localDeltaCPool['660nmch3'], self.localDeltaCPool['660nmch4'])
+        self.localCorelationPool['1200nm'] = self.getCorrelation(self.localDeltaCPool['1200nmch1'], self.localDeltaCPool['1200nmch2'], self.localDeltaCPool['1200nmch3'], self.localDeltaCPool['1200nmch4'])
+        self.localCorelationPool['1550nm'] = self.getCorrelation(self.localDeltaCPool['1550nmch1'], self.localDeltaCPool['1550nmch2'], self.localDeltaCPool['1550nmch3'], self.localDeltaCPool['1550nmch4'])
 
         # Apply Highpass Filter
         self.localDeltaCHighpassPool['870nm'] = lfilter(self.filterCoeff2, self.filterCoeff1, self.localCorelationPool['870nm'])
         self.localDeltaCHighpassPool['660nm'] = lfilter(self.filterCoeff2, self.filterCoeff1, self.localCorelationPool['660nm'])
+        self.localDeltaCHighpassPool['1200nm'] = lfilter(self.filterCoeff2, self.filterCoeff1, self.localCorelationPool['1200nm'])
+        self.localDeltaCHighpassPool['1550nm'] = lfilter(self.filterCoeff2, self.filterCoeff1, self.localCorelationPool['1550nm'])
 
         # Finding TSI Values
         filterAvg1 = float(np.sum(self.localDeltaCHighpassPool['870nm']) / len(self.localDeltaCHighpassPool['870nm']))
         filterAvg2 = float(np.sum(self.localDeltaCHighpassPool['660nm']) / len(self.localDeltaCHighpassPool['660nm']))
+        filterAvg3 = float(np.sum(self.localDeltaCHighpassPool['1200nm']) / len(self.localDeltaCHighpassPool['1200nm']))
+        filterAvg3 = float(np.sum(self.localDeltaCHighpassPool['1550nm']) / len(self.localDeltaCHighpassPool['1550nm']))
 
         if (self.localCorelationPool['870nm'][-1] + self.localCorelationPool['660nm'][-1])>0:
-            self.localTSIPool['870nm'] = ((self.localCorelationPool['870nm'][-1] / (self.localCorelationPool['870nm'][-1] + self.localCorelationPool['660nm'][-1])) * 7) + 90
-            self.localTSIPool['660nm'] = ((self.localCorelationPool['660nm'][-1] / (self.localCorelationPool['870nm'][-1] + self.localCorelationPool['660nm'][-1])) * 7) + 90
+            self.localTSIPool['870nm'] = ((self.localCorelationPool['870nm'][-1] / (self.localCorelationPool['870nm'][-1] + self.localCorelationPool['660nm'][-1] + self.localCorelationPool['1200nm'][-1] + self.localCorelationPool['1550nm'][-1])) * 7) + 90
+            self.localTSIPool['660nm'] = ((self.localCorelationPool['660nm'][-1] / (self.localCorelationPool['870nm'][-1] + self.localCorelationPool['660nm'][-1] + self.localCorelationPool['1200nm'][-1] + self.localCorelationPool['1550nm'][-1])) * 7) + 90
+            self.localTSIPool['1200nm'] = ((self.localCorelationPool['1200nm'][-1] / (self.localCorelationPool['870nm'][-1] + self.localCorelationPool['660nm'][-1] + self.localCorelationPool['1200nm'][-1] + self.localCorelationPool['1550nm'][-1])) * 7) + 90
+            self.localTSIPool['1550nm'] = ((self.localCorelationPool['1550nm'][-1] / (self.localCorelationPool['870nm'][-1] + self.localCorelationPool['660nm'][-1] + self.localCorelationPool['1200nm'][-1] + self.localCorelationPool['1550nm'][-1])) * 7) + 90
         else:
             self.localTSIPool['870nm'] = 0
             self.localTSIPool['660nm'] = 0
+            self.localTSIPool['1200nm'] = 0
+            self.localTSIPool['1550nm'] = 0
 
         if self.localTSIPool['870nm']>100:
             self.localTSIPool['870nm'] = 100
         if self.localTSIPool['660nm']>100:
             self.localTSIPool['660nm'] = 100
+        if self.localTSIPool['1200nm']>100:
+            self.localTSIPool['1200nm'] = 100
+        if self.localTSIPool['1550nm']>100:
+            self.localTSIPool['1550nm'] = 100
         if self.localTSIPool['870nm']<0:
             self.localTSIPool['870nm'] = 0
         if self.localTSIPool['660nm']<0:
             self.localTSIPool['660nm'] = 0
+        if self.localTSIPool['1200nm']<0:
+            self.localTSIPool['1200nm'] = 0
+        if self.localTSIPool['1550nm']<0:
+            self.localTSIPool['1550nm'] = 0
 
     def getRawData(self):
         """
