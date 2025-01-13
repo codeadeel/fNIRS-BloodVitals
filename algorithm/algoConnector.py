@@ -46,9 +46,28 @@ class algoInference:
         self.localDeltaCHighpassPool = dict()
         self.localTSIPool = dict()
     
+    # def getCorrelation(self, wav1, wav2, wav3, wav4):
+    #     """
+    #     This method finds correlation to four different waveforms, returns the resultant correlation
+
+    #     Arguments
+    #     =========
+    #     wav1 : Waveform 1
+    #     wav2 : Waveform 2
+    #     wav3 : Waveform 3
+    #     wav4 : Waveform 4
+
+    #     Output
+    #     ======
+    #     Resultant Correlation
+    #     """
+    #     wav12 = correlate(wav1, wav2, mode="same", method="direct")
+    #     wav34 = correlate(wav3, wav4, mode="same", method="direct")
+    #     return correlate(wav12, wav34, mode="same", method="direct").tolist()
+    
     def getCorrelation(self, wav1, wav2, wav3, wav4):
         """
-        This method finds correlation to four different waveforms, returns the resultant correlation
+        This method finds average to four different waveforms, returns the resultant correlation
 
         Arguments
         =========
@@ -61,9 +80,8 @@ class algoInference:
         ======
         Resultant Correlation
         """
-        wav12 = correlate(wav1, wav2, mode="same", method="direct")
-        wav34 = correlate(wav3, wav4, mode="same", method="direct")
-        return correlate(wav12, wav34, mode="same", method="direct").tolist()
+        ret = np.array(wav1) + np.array(wav2) + np.array(wav3) + np.array(wav4)
+        return (ret/4).tolist()
 
     def commitData(self, data):
         """
