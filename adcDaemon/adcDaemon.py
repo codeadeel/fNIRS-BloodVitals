@@ -22,6 +22,8 @@ import requests
 import socketio
 import oledlib
 
+from datetime import datetime
+
 oledisp = oledlib.oled()
 
 # %%
@@ -70,6 +72,8 @@ class sensorADC:
         }
         self.seconds2CheckConnectivity = 60
 
+        self.fileWriteHeader = "Time,660nmch1Value,660nmch1Voltage,Time,870nmch1Value,870nmch1Voltage,Time,1200nmch1Value,1200nmch1Voltage,Time,1550nmch1Value,1550nmch1Voltage,Time,660nmch2Value,660nmch2Voltage,Time,870nmch2Value,870nmch2Voltage,Time,1200nmch2Value,1200nmch2Voltage,Time,1550nmch2Value,1550nmch2Voltage,Time,660nmch3Value,660nmch3Voltage,Time,870nmch3Value,870nmch3Voltage,Time,1200nmch3Value,1200nmch3Voltage,Time,1550nmch3Value,1550nmch3Voltage,Time,660nmch4Value,660nmch4Voltage,Time,870nmch4Value,870nmch4Voltage,Time,1200nmch4Value,1200nmch4Voltage,Time,1550nmch4Value,1550nmch4Voltage\n"
+
     def __checkSystemHealth__(self):
         """
         This function checks for system health
@@ -101,7 +105,8 @@ class sensorADC:
         currentData = {
             "deviceID": self.currentDeviceID,
             "values": dict(),
-            "voltages": dict()
+            "voltages": dict(),
+            "timecapture": dict()
         }
         for l in list(self.ledPool.keys()):
             self.ledPool[l]["instance"].on()
@@ -109,10 +114,17 @@ class sensorADC:
             if self.ledPool[l]["wavelength"].split("nmch")[0] in ["870", "660"]:
                 currentData["values"][self.ledPool[l]["wavelength"]] = self.a0.value
                 currentData["voltages"][self.ledPool[l]["wavelength"]] = self.a0.voltage
+                currentData["timecapture"][self.ledPool[l]["wavelength"]] = str(datetime.now())
             else:
                 currentData["values"][self.ledPool[l]["wavelength"]] = self.a1.value
                 currentData["voltages"][self.ledPool[l]["wavelength"]] = self.a1.voltage
+                currentData["timecapture"][self.ledPool[l]["wavelength"]] = str(datetime.now())
             self.ledPool[l]["instance"].off()
+        
+        self.fileWriteHeader += currentData['timecapture']['660nmch1'] +','+ currentData['values']['660nmch1'] +','+ currentData['voltages']['660nmch1'] +','+ currentData['timecapture']['870nmch1'] +','+ currentData['values']['870nmch1'] +','+ currentData['voltages']['870nmch1'] +','+ currentData['timecapture']['1200nmch1'] +','+ currentData['values']['1200nmch1'] +','+ currentData['voltages']['1200nmch1'] +','+ currentData['timecapture']['1550nmch1'] +','+ currentData['values']['1550nmch1'] +','+ currentData['voltages']['1550nmch1'] +','+ currentData['timecapture']['660nmch2'] +','+ currentData['values']['660nmch2'] +','+ currentData['voltages']['660nmch2'] +','+ currentData['timecapture']['870nmch2'] +','+ currentData['values']['870nmch2'] +','+ currentData['voltages']['870nmch2'] +','+ currentData['timecapture']['1200nmch2'] +','+ currentData['values']['1200nmch2'] +','+ currentData['voltages']['1200nmch2'] +','+ currentData['timecapture']['1550nmch2'] +','+ currentData['values']['1550nmch2'] +','+ currentData['voltages']['1550nmch2'] +','+ currentData['timecapture']['660nmch3'] +','+ currentData['values']['660nmch3'] +','+ currentData['voltages']['660nmch3'] +','+ currentData['timecapture']['870nmch3'] +','+ currentData['values']['870nmch3'] +','+ currentData['voltages']['870nmch3'] +','+ currentData['timecapture']['1200nmch3'] +','+ currentData['values']['1200nmch3'] +','+ currentData['voltages']['1200nmch3'] +','+ currentData['timecapture']['1550nmch3'] +','+ currentData['values']['1550nmch3'] +','+ currentData['voltages']['1550nmch3'] +','+ currentData['timecapture']['660nmch4'] +','+ currentData['values']['660nmch4'] +','+ currentData['voltages']['660nmch4'] +','+ currentData['timecapture']['870nmch4'] +','+ currentData['values']['870nmch4'] +','+ currentData['voltages']['870nmch4'] +','+ currentData['timecapture']['1200nmch4'] +','+ currentData['values']['1200nmch4'] +','+ currentData['voltages']['1200nmch4'] +','+ currentData['timecapture']['1550nmch4'] +','+ currentData['values']['1550nmch4'] +','+ currentData['voltages']['1550nmch4'] +'\n'
+
+        with open('/home/fnirsLogSheet.csv', 'w') as file1:
+            file1.write(self.fileWriteHeader)
 
         self.sio.emit('serverRAW', currentData)
 
