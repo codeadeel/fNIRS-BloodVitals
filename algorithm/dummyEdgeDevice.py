@@ -56,22 +56,22 @@ if __name__=="__main__":
                     '1550nmch4': random.random()
                 },
                 "timecapture": {
-                    '870nmch1': random.random(),
-                    '870nmch2': random.random(),
-                    '870nmch3': random.random(),
-                    '870nmch4': random.random(),
-                    '660nmch1': random.random(),
-                    '660nmch2': random.random(),
-                    '660nmch3': random.random(),
-                    '660nmch4': random.random(),
-                    '1200nmch1': random.random(),
-                    '1200nmch2': random.random(),
-                    '1200nmch3': random.random(),
-                    '1200nmch4': random.random(),
-                    '1550nmch1': random.random(),
-                    '1550nmch2': random.random(),
-                    '1550nmch3': random.random(),
-                    '1550nmch4': random.random()
+                    '870nmch1': str(random.random()),
+                    '870nmch2': str(random.random()),
+                    '870nmch3': str(random.random()),
+                    '870nmch4': str(random.random()),
+                    '660nmch1': str(random.random()),
+                    '660nmch2': str(random.random()),
+                    '660nmch3': str(random.random()),
+                    '660nmch4': str(random.random()),
+                    '1200nmch1': str(random.random()),
+                    '1200nmch2': str(random.random()),
+                    '1200nmch3': str(random.random()),
+                    '1200nmch4': str(random.random()),
+                    '1550nmch1': str(random.random()),
+                    '1550nmch2': str(random.random()),
+                    '1550nmch3': str(random.random()),
+                    '1550nmch4': str(random.random())
                 }
             })
 

@@ -30,8 +30,8 @@ export default function App(){
     sensorValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "940nmch1": [], "940nmch2": [], "940nmch3": [], "940nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
     deltaValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "660nmch1": [], "660nmch2": [], "660nmch3": [], "660nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
     concentrationValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "660nmch1": [], "660nmch2": [], "660nmch3": [], "660nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
-    highpassFilterValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []},
-    tsiValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []}
+    highpassFilterValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
+    tsiValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []}
   });
   // Cookies checker for the React App
   const [fnirsCookie, setfnirsCookie, removefnirsCookie] = useCookies('', {doNotParse: true, doNotUpdate: true});
