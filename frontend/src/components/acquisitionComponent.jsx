@@ -143,10 +143,10 @@ export default function AcquisitionComponent(){
     useEffect(() => {
         recordingData.current = {
             sensorValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "660nmch1": [], "660nmch2": [], "660nmch3": [], "660nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
-            deltaValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
-            concentrationValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
-            highpassFilterValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []},
-            tsiValues: {"870nm": [], "660nm": [], "1200nm": [], "1550nm": []}
+            deltaValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "660nmch1": [], "660nmch2": [], "660nmch3": [], "660nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
+            concentrationValues: {"870nmch1": [], "870nmch2": [], "870nmch3": [], "870nmch4": [], "660nmch1": [], "660nmch2": [], "660nmch3": [], "660nmch4": [], "1200nmch1": [], "1200nmch2": [], "1200nmch3": [], "1200nmch4": [], "1550nmch1": [], "1550nmch2": [], "1550nmch3": [], "1550nmch4": []},
+            highpassFilterValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []},
+            tsiValues: {"870nm": [], "940nm": [], "1200nm": [], "1550nm": []}
         };
 
         setLiveStreamPageActive('text-current font-sans');
